@@ -20,7 +20,7 @@ public class HistoryController {
 
     @GetMapping("/get")
     public List<HistoryDto> getAll() {
-        //add bug code
+        //add bug
         return historyService.findAllDto();
     }
 
