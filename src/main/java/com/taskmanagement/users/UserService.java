@@ -1,6 +1,5 @@
-package com.restservice.users;
+package com.taskmanagement.users;
 
-import com.restservice.tasks.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

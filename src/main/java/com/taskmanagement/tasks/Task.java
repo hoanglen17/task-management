@@ -1,6 +1,6 @@
-package com.restservice.tasks;
+package com.taskmanagement.tasks;
 
-import com.restservice.users.User;
+import com.taskmanagement.users.User;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;

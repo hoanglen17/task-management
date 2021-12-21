@@ -1,9 +1,8 @@
-package com.restservice.controller;
+package com.taskmanagement.controller;
 
-import com.restservice.history.History;
-import com.restservice.history.HistoryDto;
-import com.restservice.history.IHistoryService;
-import com.restservice.tasks.Task;
+import com.taskmanagement.history.History;
+import com.taskmanagement.history.HistoryDto;
+import com.taskmanagement.history.IHistoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

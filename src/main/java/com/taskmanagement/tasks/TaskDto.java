@@ -1,4 +1,4 @@
-package com.restservice.tasks;
+package com.taskmanagement.tasks;
 
 import lombok.Data;
 

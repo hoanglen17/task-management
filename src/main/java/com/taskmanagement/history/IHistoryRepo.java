@@ -1,6 +1,5 @@
-package com.restservice.history;
+package com.taskmanagement.history;
 
-import com.restservice.tasks.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

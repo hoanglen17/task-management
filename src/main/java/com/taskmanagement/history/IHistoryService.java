@@ -1,4 +1,4 @@
-package com.restservice.history;
+package com.taskmanagement.history;
 
 public interface IHistoryService extends IGeneralService<History> {
 }

@@ -1,8 +1,5 @@
-package com.restservice.tasks;
-import com.restservice.users.UserDto;
+package com.taskmanagement.tasks;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

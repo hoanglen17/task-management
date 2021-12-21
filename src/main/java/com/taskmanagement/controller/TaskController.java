@@ -1,13 +1,12 @@
-package com.restservice.controller;
+package com.taskmanagement.controller;
 
-import com.restservice.history.History;
-import com.restservice.history.IHistoryService;
-import com.restservice.tasks.ITaskService;
-import com.restservice.tasks.Task;
-import com.restservice.tasks.TaskDto;
+import com.taskmanagement.history.History;
+import com.taskmanagement.history.IHistoryService;
+import com.taskmanagement.tasks.ITaskService;
+import com.taskmanagement.tasks.Task;
+import com.taskmanagement.tasks.TaskDto;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
