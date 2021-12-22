@@ -24,70 +24,79 @@ public class TaskController {
     private final UserService userService;
 
     @GetMapping("/get")
-    public List<TaskDto> getAllTask() {
-        return taskService.findAll();
+    public ResponseEntity<Object> getAllTask() {
+        return new ResponseEntity<>(taskService.findAll(),HttpStatus.OK);
     }
 
     @GetMapping("/get/{id}")
-    public TaskDto findByIdDto(@PathVariable Long id) {
-       return taskService.findByIdDto(id);
+    public ResponseEntity<TaskDto> findByIdDto(@PathVariable Long id) {
+        return new ResponseEntity<>(taskService.findByIdDto(id),HttpStatus.OK);
     }
 
     @GetMapping("/get-by-status/ascending")
-    public List<TaskDto> getTaskByStatusAscending () {
-        return  taskService.getByStatusAscending();
+    public ResponseEntity<Object> getTaskByStatusAscending () {
+        return new ResponseEntity<>(taskService.getByStatusAscending(),HttpStatus.OK);
     }
 
     @GetMapping("/get-by-status/descending")
-    public List<TaskDto> getTaskByStatusDescending () {
-        return  taskService.getByStatusDescending();
+    public ResponseEntity<Object> getTaskByStatusDescending () {
+        return new ResponseEntity<>(taskService.getByStatusDescending(),HttpStatus.OK);
     }
 
     @GetMapping("/get-by-point/ascending")
-    public List<TaskDto> getTaskByPointAscending () {
-        return  taskService.getByPointAscending();
+    public ResponseEntity<Object> getTaskByPointAscending () {
+        return new ResponseEntity<>(taskService.getByPointAscending(),HttpStatus.OK);
     }
 
     @GetMapping("/get-by-point/descending")
-    public List<TaskDto> getByPointDescending () {
-        return  taskService.getByPointDescending();
+    public ResponseEntity<Object> getByPointDescending () {
+        return new ResponseEntity<>(taskService.getByPointDescending(),HttpStatus.OK);
     }
 
     @GetMapping("/find-by-point")
-    public List<TaskDto> findByPoint(@RequestBody Integer point) {
-        return  taskService.findByPoint(point);
+    public ResponseEntity<Object> findByPoint(@RequestBody Integer point) {
+        return new ResponseEntity<>(taskService.findByPoint(point),HttpStatus.OK);
     }
 
     @GetMapping("/find-by-description")
-    public List<TaskDto> findByDescription(@RequestBody String description) {
-        return  taskService.findByDescription(description);
+    public ResponseEntity<Object> findByDescription(@RequestBody String description) {
+        return new ResponseEntity<>(taskService.findByDescription(description),HttpStatus.OK);
     }
 
     @GetMapping("/find-by-user")
-    public List<TaskDto> findByUser(@RequestBody Long idUser) {
-        return  taskService.findByUser(idUser);
+    public ResponseEntity<Object> findByUser(@RequestBody Long idUser) {
+        return new ResponseEntity<>(taskService.findByUser(idUser),HttpStatus.OK);
     }
 
     @GetMapping("/find-by-parent")
-    public List<TaskDto> findByParent(@RequestBody Long idParent) {
-        return  taskService.findByParent(idParent);
+    public ResponseEntity<Object> findByParent(@RequestBody Long idParent) {
+        return new ResponseEntity<>(taskService.findByParent(idParent),HttpStatus.OK);
     }
 
     @GetMapping("/find-by-status")
-    public List<TaskDto> getTaskByStatus(@RequestBody String status) {
-        return  taskService.findByStatus(status);
+    public ResponseEntity<Object> findTaskByStatus(@RequestBody String status) {
+        return new ResponseEntity<>(taskService.findByStatus(status),HttpStatus.OK);
+    }
+
+    @GetMapping("/find-by-tasktype")
+    public ResponseEntity<Object> findTaskByTaskType(@RequestBody String status) {
+        return new ResponseEntity<>(taskService.findByTaskType(status),HttpStatus.OK);
     }
 
     @PostMapping("/create")
-    public ResponseEntity<TaskDto> createNewTask(@RequestBody TaskDto taskDto) {
+    public ResponseEntity<Object> createNewTask(@RequestBody TaskDto taskDto) {
         User user = userService.findUser(taskDto.getUserId()).get();
         Task task = TaskConverter.mapper(taskDto, user);
-        taskService.save(task);
-        return new ResponseEntity<>(taskDto, HttpStatus.OK);
+        if(task.getPoint() >= 0 && task.getPoint() <= 5){
+            taskService.save(task);
+            return new ResponseEntity<>(taskService.findByIdDto(task.getId()), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/update/{id}")
-    public TaskDto updateTask(@PathVariable Long id, @RequestBody TaskDto taskDto) {
+    public ResponseEntity<Object> updateTask(@PathVariable Long id, @RequestBody TaskDto taskDto) {
         Task taskFromDB = taskService.findById(id).get();
         String info = new String();
         if((taskDto.getDescription().equals(taskFromDB.getDescription())) == false ){
@@ -114,12 +123,11 @@ public class TaskController {
         }
         historyService.createHistory(taskFromDB.getId(),info);
         taskService.save(taskFromDB);
-
-        return findByIdDto(taskFromDB.getId());
+        return new ResponseEntity<>(TaskConverter.Converter(taskFromDB),HttpStatus.OK);
     }
 
     @PutMapping("/update-status/{id}")
-    public TaskDto updateTaskStatus(@PathVariable Long id, @RequestBody String status) {
+    public ResponseEntity<Object> updateTaskStatus(@PathVariable Long id, @RequestBody String status) {
         Task taskFromDB = taskService.findById(id).get();
         String info = new String() ;
         if((status.equals(taskFromDB.getStatus())) == false ){
@@ -138,11 +146,11 @@ public class TaskController {
             historyService.createHistory(taskFromDB.getId(),info);
         }
         taskService.save(taskFromDB);
-        return findByIdDto(taskFromDB.getId());
+        return new ResponseEntity<>(TaskConverter.Converter(taskFromDB),HttpStatus.OK);
     }
 
     @PutMapping("/update-point/{id}")
-    public TaskDto updateTaskPoint(@PathVariable Long id, @RequestBody Integer point) {
+    public ResponseEntity<Object> updateTaskPoint(@PathVariable Long id, @RequestBody Integer point) {
         Task taskFromDB = taskService.findById(id).get();
         String info = new String() ;
         if(point != taskFromDB.getPoint()){
@@ -151,14 +159,14 @@ public class TaskController {
             historyService.createHistory(taskFromDB.getId(),info);
         }
         taskService.save(taskFromDB);
-        return findByIdDto(taskFromDB.getId());
+            return new ResponseEntity<>(TaskConverter.Converter(taskFromDB),HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
-    public TaskDto deleteTask(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteTask(@PathVariable Long id) {
         Optional<Task> taskOptional = taskService.findById(id);
         TaskDto taskDto = TaskConverter.Converter(taskOptional.get());
         taskService.remove(id);
-        return taskDto;
+        return new ResponseEntity<>(taskDto,HttpStatus.OK);
     }
 }

@@ -114,6 +114,7 @@ public class TaskService implements ITaskService {
         }
         return taskDtos;
     }
+
     @Override
     public List<TaskDto> findByParent(Long id) {
         List<TaskDto> taskDtos = new ArrayList<>();
@@ -124,6 +125,19 @@ public class TaskService implements ITaskService {
         }
         return taskDtos;
     }
+
+    @Override
+    public List<TaskDto> findByTaskType(String taskType) {
+        List<TaskDto> taskDtos = new ArrayList<>();
+        for (Task task : taskRepo.findAll()) {
+            TaskDto taskDto = TaskConverter.Converter(task);
+            if(taskDto.getTaskType().equals(taskType)){
+                taskDtos.add(TaskConverter.Converter(task));
+            }
+        }
+        return taskDtos;
+    }
+
     @Override
     public Optional<Task> findById(Long id) {
         return taskRepo.findById(id);

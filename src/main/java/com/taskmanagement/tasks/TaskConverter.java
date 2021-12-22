@@ -8,13 +8,18 @@ public class TaskConverter{
     public static TaskDto Converter(Task task){
         TaskDto dto = new TaskDto();
         dto.setId(task.getId());
+        if(task.getParentId() == task.getId()){
+            dto.setTaskType("Main Task");
+        }else{
+            dto.setTaskType("Sidequests");
+        }
         dto.setDescription(task.getDescription());
         dto.setStartDate(task.getStartDate());
-        dto.setEndDate(task.getStartDate());
+        dto.setEndDate(task.getEndDate());
         dto.setStatus(task.getStatus());
         dto.setPoint(task.getPoint());
         dto.setUserId(task.getUser().getId());
-        dto.setParentId(task.getId());
+        dto.setParentId(task.getParentId());
         return dto;
     }
     public static Task mapper(TaskDto taskDto, User user){

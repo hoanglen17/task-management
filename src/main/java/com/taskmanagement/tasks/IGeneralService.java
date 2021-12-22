@@ -8,7 +8,6 @@ public interface IGeneralService<Tasks> {
     List<TaskDto> getByStatusDescending ();
     List<TaskDto> getByPointAscending();
     List<TaskDto> getByPointDescending();
-
     List<TaskDto> findAll();
     Optional<Tasks> findById(Long id);
     TaskDto findByIdDto(Long id);
@@ -17,7 +16,7 @@ public interface IGeneralService<Tasks> {
     List<TaskDto> findByDescription (String description);
     List<TaskDto> findByUser (Long id);
     List<TaskDto> findByParent(Long id);
-
+    List<TaskDto> findByTaskType(String taskType);
     Task save(Tasks task);
     void remove(Long id);
 }

@@ -1,15 +1,12 @@
 package com.taskmanagement.controller;
 
 import com.taskmanagement.history.History;
-import com.taskmanagement.history.HistoryDto;
 import com.taskmanagement.history.IHistoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/histories")
@@ -19,8 +16,8 @@ public class HistoryController {
     private final IHistoryService historyService;
 
     @GetMapping("/get")
-    public List<HistoryDto> getAll() {
-        return historyService.findAllDto();
+    public ResponseEntity<Object> getAll() {
+        return new ResponseEntity<>(historyService.findAllDto(), HttpStatus.OK);
     }
 
     @PostMapping("/create")

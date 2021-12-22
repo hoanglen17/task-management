@@ -21,14 +21,9 @@ public class UserService implements  IUserService{
     @Override
     public List<UserDto> findAll() {
         List<UserDto> userDtos = new ArrayList<>();
-
         for (User user : userRepo.findAll()) {
-            UserDto dto = new UserDto();
-            dto.setId(user.getId());
-            dto.setName(user.getFirstName() + " " + user.getLastName());
-            userDtos.add(dto);
+            userDtos.add(UserConverter.Converter(user));
         }
-
         return userDtos;
     }
 
