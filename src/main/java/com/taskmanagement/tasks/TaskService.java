@@ -19,14 +19,7 @@ public class TaskService implements ITaskService {
     public List<TaskDto> findAll() {
         List<TaskDto> taskDtos = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
-            TaskDto dto = new TaskDto();
-            dto.setId(task.getId());
-            dto.setDescription(task.getDescription());
-            dto.setStatus(task.getStatus());
-            dto.setPoint(task.getPoint());
-            dto.setIdUser(task.getUser().getId());
-            dto.setIdParent_id(task.getId());
-            taskDtos.add(dto);
+            taskDtos.add(TaskConverter.Converter(task));
         }
         return taskDtos;
     }
@@ -35,14 +28,7 @@ public class TaskService implements ITaskService {
         List<TaskDto> taskDtos = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             if(task.getPoint() == point){
-            TaskDto dto = new TaskDto();
-            dto.setId(task.getId());
-            dto.setDescription(task.getDescription());
-            dto.setStatus(task.getStatus());
-            dto.setPoint(task.getPoint());
-            dto.setIdUser(task.getUser().getId());
-            dto.setIdParent_id(task.getId());
-            taskDtos.add(dto);}
+            taskDtos.add(TaskConverter.Converter(task));}
         }
         return taskDtos;
     }
@@ -51,14 +37,7 @@ public class TaskService implements ITaskService {
         List<TaskDto> taskDtos = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals((status))){
-                TaskDto dto = new TaskDto();
-                dto.setId(task.getId());
-                dto.setDescription(task.getDescription());
-                dto.setStatus(task.getStatus());
-                dto.setPoint(task.getPoint());
-                dto.setIdUser(task.getUser().getId());
-                dto.setIdParent_id(task.getId());
-                taskDtos.add(dto);}
+                taskDtos.add(TaskConverter.Converter(task));}
         }
         return taskDtos;
     }
@@ -67,36 +46,16 @@ public class TaskService implements ITaskService {
         List<TaskDto> taskDtos = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals("TODO")){
-                TaskDto dto = new TaskDto();
-                dto.setId(task.getId());
-                dto.setDescription(task.getDescription());
-                dto.setStatus(task.getStatus());
-                dto.setPoint(task.getPoint());
-                dto.setIdUser(task.getUser().getId());
-                dto.setIdParent_id(task.getId());
-                taskDtos.add(dto);}
+                taskDtos.add(TaskConverter.Converter(task));
+            }
         }
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals("IN_PROGRESS")){
-                TaskDto dto = new TaskDto();
-                dto.setId(task.getId());
-                dto.setDescription(task.getDescription());
-                dto.setStatus(task.getStatus());
-                dto.setPoint(task.getPoint());
-                dto.setIdUser(task.getUser().getId());
-                dto.setIdParent_id(task.getId());
-                taskDtos.add(dto);}
+                taskDtos.add(TaskConverter.Converter(task));}
         }
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals("DONE")){
-                TaskDto dto = new TaskDto();
-                dto.setId(task.getId());
-                dto.setDescription(task.getDescription());
-                dto.setStatus(task.getStatus());
-                dto.setPoint(task.getPoint());
-                dto.setIdUser(task.getUser().getId());
-                dto.setIdParent_id(task.getId());
-                taskDtos.add(dto);}
+                taskDtos.add(TaskConverter.Converter(task));}
         }
         return taskDtos;
     }
@@ -106,36 +65,15 @@ public class TaskService implements ITaskService {
         List<TaskDto> taskDtos = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals("DONE")){
-                TaskDto dto = new TaskDto();
-                dto.setId(task.getId());
-                dto.setDescription(task.getDescription());
-                dto.setStatus(task.getStatus());
-                dto.setPoint(task.getPoint());
-                dto.setIdUser(task.getUser().getId());
-                dto.setIdParent_id(task.getId());
-                taskDtos.add(dto);}
+                taskDtos.add(TaskConverter.Converter(task));}
         }
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals("IN_PROGRESS")){
-                TaskDto dto = new TaskDto();
-                dto.setId(task.getId());
-                dto.setDescription(task.getDescription());
-                dto.setStatus(task.getStatus());
-                dto.setPoint(task.getPoint());
-                dto.setIdUser(task.getUser().getId());
-                dto.setIdParent_id(task.getId());
-                taskDtos.add(dto);}
+                taskDtos.add(TaskConverter.Converter(task));}
         }
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals("TODO")){
-                TaskDto dto = new TaskDto();
-                dto.setId(task.getId());
-                dto.setDescription(task.getDescription());
-                dto.setStatus(task.getStatus());
-                dto.setPoint(task.getPoint());
-                dto.setIdUser(task.getUser().getId());
-                dto.setIdParent_id(task.getId());
-                taskDtos.add(dto);}
+                taskDtos.add(TaskConverter.Converter(task));}
         }
         return taskDtos;
     }
@@ -144,14 +82,7 @@ public class TaskService implements ITaskService {
     public List<TaskDto> getByPointAscending(){
         List<TaskDto> taskDtos = new ArrayList<>();
         for (Task task : taskRepo.findAllOrderByPointAsc()) {
-                TaskDto dto = new TaskDto();
-                dto.setId(task.getId());
-                dto.setDescription(task.getDescription());
-                dto.setStatus(task.getStatus());
-                dto.setPoint(task.getPoint());
-                dto.setIdUser(task.getUser().getId());
-                dto.setIdParent_id(task.getId());
-                taskDtos.add(dto);
+                taskDtos.add(TaskConverter.Converter(task));
         }
         return taskDtos;
     }
@@ -160,14 +91,7 @@ public class TaskService implements ITaskService {
     public List<TaskDto> getByPointDescending(){
         List<TaskDto> taskDtos = new ArrayList<>();
         for (Task task : taskRepo.findAllOrderByPointDesc()) {
-            TaskDto dto = new TaskDto();
-            dto.setId(task.getId());
-            dto.setDescription(task.getDescription());
-            dto.setStatus(task.getStatus());
-            dto.setPoint(task.getPoint());
-            dto.setIdUser(task.getUser().getId());
-            dto.setIdParent_id(task.getId());
-            taskDtos.add(dto);
+            taskDtos.add(TaskConverter.Converter(task));
         }
         return taskDtos;
     }
@@ -176,14 +100,7 @@ public class TaskService implements ITaskService {
         List<TaskDto> taskDtos = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             if(task.getDescription().equals((description))){
-                TaskDto dto = new TaskDto();
-                dto.setId(task.getId());
-                dto.setDescription(task.getDescription());
-                dto.setStatus(task.getStatus());
-                dto.setPoint(task.getPoint());
-                dto.setIdUser(task.getUser().getId());
-                dto.setIdParent_id(task.getId());
-                taskDtos.add(dto);}
+                taskDtos.add(TaskConverter.Converter(task));}
         }
         return taskDtos;
     }
@@ -192,14 +109,8 @@ public class TaskService implements ITaskService {
         List<TaskDto> taskDtos = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             if(task.getUser().getId() == id){
-                TaskDto dto = new TaskDto();
-                dto.setId(task.getId());
-                dto.setDescription(task.getDescription());
-                dto.setStatus(task.getStatus());
-                dto.setPoint(task.getPoint());
-                dto.setIdUser(task.getUser().getId());
-                dto.setIdParent_id(task.getId());
-                taskDtos.add(dto);}
+                taskDtos.add(TaskConverter.Converter(task));
+            }
         }
         return taskDtos;
     }
@@ -208,14 +119,8 @@ public class TaskService implements ITaskService {
         List<TaskDto> taskDtos = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             if(task.getParentId() == id){
-                TaskDto dto = new TaskDto();
-                dto.setId(task.getId());
-                dto.setDescription(task.getDescription());
-                dto.setStatus(task.getStatus());
-                dto.setPoint(task.getPoint());
-                dto.setIdUser(task.getUser().getId());
-                dto.setIdParent_id(task.getId());
-                taskDtos.add(dto);}
+                taskDtos.add(TaskConverter.Converter(task));
+            }
         }
         return taskDtos;
     }
@@ -227,14 +132,7 @@ public class TaskService implements ITaskService {
     @Override
     public TaskDto findByIdDto(Long id) {
         Optional<Task> taskOptional = taskRepo.findById(id);
-        TaskDto taskDto = new TaskDto();
-        taskDto.setId(taskOptional.get().getId());
-        taskDto.setDescription(taskOptional.get().getDescription());
-        taskDto.setStatus(taskOptional.get().getStatus());
-        taskDto.setPoint(taskOptional.get().getPoint());
-        taskDto.setIdUser(taskOptional.get().getUser().getId());
-        taskDto.setIdParent_id(taskOptional.get().getId());
-        return taskDto;
+        return TaskConverter.Converter(taskOptional.get());
     }
 
     @Override

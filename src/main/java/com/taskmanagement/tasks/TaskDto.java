@@ -12,6 +12,8 @@ public class TaskDto {
     private LocalDate endDate;
     private String status;
     private Integer point;
-    private Long idUser;
-    private Long idParent_id;
+    private Long userId;
+    private Long parentId;
+
+
 }

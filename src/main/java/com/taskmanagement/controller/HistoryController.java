@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/historys")
+@RequestMapping("/histories")
 @AllArgsConstructor
 public class HistoryController {
     @Autowired
@@ -20,7 +20,6 @@ public class HistoryController {
 
     @GetMapping("/get")
     public List<HistoryDto> getAll() {
-        //add bug
         return historyService.findAllDto();
     }
 

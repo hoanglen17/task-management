@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -29,5 +30,9 @@ public class UserService implements  IUserService{
         }
 
         return userDtos;
+    }
+
+    public Optional<User> findUser(Long userId) {
+        return userRepo.findById(userId);
     }
 }

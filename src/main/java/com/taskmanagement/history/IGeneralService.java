@@ -8,5 +8,6 @@ public interface IGeneralService<History>{
     List<HistoryDto> findAllDto();
     Optional<History> findById(Long id);
     History save(History history);
+    History createHistory(Long taskId, String info);
     void remove(Long id);
 }

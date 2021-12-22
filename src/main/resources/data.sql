@@ -6,10 +6,10 @@
  values(1, 'description1', 1,4,'TODO',1);
 
  insert into task (id, description, parent_id, point, status,user_id)
- values(2, 'description2', 2,3,'IN_PROGRESS',2);
+ values(2, 'description2', 2,3,'TODO',2);
 
  insert into task (id, description, parent_id, point, status,user_id)
- values(3, 'description3', 1,2,'DONE',1);
+ values(3, 'description3', 1,2,'TODO',1);
 
  insert into task (id, description, parent_id, point, status,user_id)
  values(4, 'description4', 2,1,'TODO',2);
