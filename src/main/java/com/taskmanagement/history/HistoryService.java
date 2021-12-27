@@ -18,11 +18,11 @@ public class HistoryService implements IHistoryService{
     }
     @Override
     public List<HistoryDto> findAllDto() {
-        List<HistoryDto> historyDtos = new ArrayList<>();
+        List<HistoryDto> listHistoryDto = new ArrayList<>();
         for (History history : historyRepo.findAllOrderByTimeDesc()) {
-            historyDtos.add(HistoryConverter.Converter(history));
+            listHistoryDto.add(HistoryConverter.Converter(history));
         }
-        return historyDtos;
+        return listHistoryDto;
     }
     @Override
     public History createHistory(Long taskId, String info){
@@ -39,8 +39,8 @@ public class HistoryService implements IHistoryService{
     }
 
     @Override
-    public History save(History category) {
-        return historyRepo.save(category);
+    public History save(History history) {
+        return historyRepo.save(history);
     }
 
     @Override

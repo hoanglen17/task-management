@@ -96,76 +96,16 @@ public class TaskController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Object> updateTask(@PathVariable Long id, @RequestBody TaskDto taskDto) {
-        Task taskFromDB = taskService.findById(id).get();
-        String info = new String();
-        if((taskDto.getDescription().equals(taskFromDB.getDescription())) == false ){
-            info = "Change " + "Description: " + taskFromDB.getDescription() + " to " + taskDto.getDescription()+ " ";
-            taskFromDB.setDescription(taskDto.getDescription());
-        }
-        if(taskDto.getPoint() != taskFromDB.getPoint()){
-            info = info +"Change " + "Point: " + taskFromDB.getPoint() + " to " + taskDto.getPoint()+ " ";
-            taskFromDB.setPoint(taskDto.getPoint());
-        }
-        if((taskDto.getStatus().equals(taskFromDB.getStatus())) == false ){
-            info = info + "Change " + "Status: " + taskFromDB.getStatus() + " to " + taskDto.getStatus()+ " ";
-            if(taskDto.getStatus().equals("IN_PROGRESS")){
-                taskFromDB.setStartDate(LocalDate.now()) ;
-                taskFromDB.setStatus("IN_PROGRESS");
-            }else if (taskDto.getStatus().equals("DONE")){
-                taskFromDB.setEndDate(LocalDate.now());
-                taskFromDB.setStatus("DONE");
-            }else if(taskDto.getStatus().equals("TODO")){
-                taskFromDB.setStatus("TODO");
-                taskFromDB.setStartDate(null) ;
-                taskFromDB.setEndDate(null);
-            }
-        }
-        historyService.createHistory(taskFromDB.getId(),info);
-        taskService.save(taskFromDB);
-        return new ResponseEntity<>(TaskConverter.Converter(taskFromDB),HttpStatus.OK);
+        return new ResponseEntity<>(taskService.updateTask(id,taskDto),HttpStatus.OK);
     }
 
     @PutMapping("/update-status/{id}")
     public ResponseEntity<Object> updateTaskStatus(@PathVariable Long id, @RequestBody String status) {
-        Task taskFromDB = taskService.findById(id).get();
-        String info = new String() ;
-        if((status.equals(taskFromDB.getStatus())) == false ){
-            info = info + "Change " + "Status: " + taskFromDB.getStatus() + " to " + status + " ";
-            if(status.equals("IN_PROGRESS")){
-                taskFromDB.setStartDate(LocalDate.now()) ;
-                taskFromDB.setStatus("IN_PROGRESS");
-            }else if (status.equals("DONE")){
-                taskFromDB.setEndDate(LocalDate.now());
-                taskFromDB.setStatus("DONE");
-            }else if(status.equals("TODO")){
-                taskFromDB.setStatus("TODO");
-                taskFromDB.setStartDate(null) ;
-                taskFromDB.setEndDate(null);
-            }
-            historyService.createHistory(taskFromDB.getId(),info);
-        }
-        taskService.save(taskFromDB);
-        return new ResponseEntity<>(TaskConverter.Converter(taskFromDB),HttpStatus.OK);
+        return new ResponseEntity<>(taskService.updateStatusTask(id,status),HttpStatus.OK);
     }
 
     @PutMapping("/update-point/{id}")
     public ResponseEntity<Object> updateTaskPoint(@PathVariable Long id, @RequestBody Integer point) {
-        Task taskFromDB = taskService.findById(id).get();
-        String info = new String() ;
-        if(point != taskFromDB.getPoint()){
-            info = info + "Change " + "Status: " + taskFromDB.getPoint() + " to " + point + " ";
-            taskFromDB.setPoint(point);
-            historyService.createHistory(taskFromDB.getId(),info);
-        }
-        taskService.save(taskFromDB);
-            return new ResponseEntity<>(TaskConverter.Converter(taskFromDB),HttpStatus.CREATED);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteTask(@PathVariable Long id) {
-        Optional<Task> taskOptional = taskService.findById(id);
-        TaskDto taskDto = TaskConverter.Converter(taskOptional.get());
-        taskService.remove(id);
-        return new ResponseEntity<>(taskDto,HttpStatus.OK);
+        return new ResponseEntity<>(taskService.updatePointTask(id,point),HttpStatus.CREATED);
     }
 }

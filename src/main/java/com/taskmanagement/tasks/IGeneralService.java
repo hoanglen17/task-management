@@ -17,6 +17,9 @@ public interface IGeneralService<Tasks> {
     List<TaskDto> findByUser (Long id);
     List<TaskDto> findByParent(Long id);
     List<TaskDto> findByTaskType(String taskType);
+    TaskDto updateStatusTask(Long id, String status);
+    TaskDto updateTask(Long id,TaskDto task);
+    TaskDto updatePointTask(Long id, int point);
     Task save(Tasks task);
     void remove(Long id);
 }

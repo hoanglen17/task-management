@@ -1,6 +1,11 @@
 package com.taskmanagement.tasks;
+import com.taskmanagement.history.History;
+import com.taskmanagement.history.HistoryService;
+import com.taskmanagement.history.IHistoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,6 +14,9 @@ import java.util.Optional;
 public class TaskService implements ITaskService {
     @Autowired
     private final ITaskRepo taskRepo;
+    private TaskService taskService;
+    private HistoryService historyService;
+
 
     public TaskService(ITaskRepo taskRepo) {
         this.taskRepo = taskRepo;
@@ -146,6 +154,69 @@ public class TaskService implements ITaskService {
     public TaskDto findByIdDto(Long id) {
         Optional<Task> taskOptional = taskRepo.findById(id);
         return TaskConverter.Converter(taskOptional.get());
+    }
+
+    @Override
+    public TaskDto updateStatusTask(Long id, String status){
+        Task taskFromDB = taskService.findById(id).get();
+        String taskHistoryInfo = new String() ;
+        if((status.equals(taskFromDB.getStatus())) == false ){
+            taskHistoryInfo = taskHistoryInfo + "Change " + "Status: " + taskFromDB.getStatus() + " to " + status + " ";
+            if(status.equals("IN_PROGRESS")){
+                taskFromDB.setStartDate(LocalDate.now()) ;
+                taskFromDB.setStatus("IN_PROGRESS");
+            }else if (status.equals("DONE")){
+                taskFromDB.setEndDate(LocalDate.now());
+                taskFromDB.setStatus("DONE");
+            }else if(status.equals("TODO")){
+                taskFromDB.setStatus("TODO");
+                taskFromDB.setStartDate(null) ;
+                taskFromDB.setEndDate(null);
+            }
+            historyService.createHistory(taskFromDB.getId(),taskHistoryInfo);
+        }
+        return TaskConverter.Converter(taskFromDB);
+    }
+    @Override
+    public TaskDto updateTask(Long id, TaskDto taskDto){
+        Task taskFromDB = taskService.findById(id).get();
+        String taskHistoryInfo = new String();
+        if((taskDto.getDescription().equals(taskFromDB.getDescription())) == false ){
+            taskHistoryInfo = "Change " + "Description: " + taskFromDB.getDescription() + " to " + taskDto.getDescription()+ " ";
+            taskFromDB.setDescription(taskDto.getDescription());
+        }
+        if(taskDto.getPoint() != taskFromDB.getPoint()){
+            taskHistoryInfo = taskHistoryInfo +"Change " + "Point: " + taskFromDB.getPoint() + " to " + taskDto.getPoint()+ " ";
+            taskFromDB.setPoint(taskDto.getPoint());
+        }
+        if((taskDto.getStatus().equals(taskFromDB.getStatus())) == false ){
+            taskHistoryInfo = taskHistoryInfo + "Change " + "Status: " + taskFromDB.getStatus() + " to " + taskDto.getStatus()+ " ";
+            if(taskDto.getStatus().equals("IN_PROGRESS")){
+                taskFromDB.setStartDate(LocalDate.now()) ;
+                taskFromDB.setStatus("IN_PROGRESS");
+            }else if (taskDto.getStatus().equals("DONE")){
+                taskFromDB.setEndDate(LocalDate.now());
+                taskFromDB.setStatus("DONE");
+            }else if(taskDto.getStatus().equals("TODO")){
+                taskFromDB.setStatus("TODO");
+                taskFromDB.setStartDate(null) ;
+                taskFromDB.setEndDate(null);
+            }
+        }
+        historyService.createHistory(taskFromDB.getId(),taskHistoryInfo);
+        return TaskConverter.Converter(taskFromDB);
+    }
+
+    @Override
+    public TaskDto updatePointTask(Long id, int point){
+        Task taskFromDB = taskService.findById(id).get();
+        String taskHistoryInfo = new String() ;
+        if(point != taskFromDB.getPoint()){
+            taskHistoryInfo = taskHistoryInfo + "Change " + "Status: " + taskFromDB.getPoint() + " to " + point + " ";
+            taskFromDB.setPoint(point);
+            historyService.createHistory(taskFromDB.getId(),taskHistoryInfo);
+        }
+        return TaskConverter.Converter(taskFromDB);
     }
 
     @Override

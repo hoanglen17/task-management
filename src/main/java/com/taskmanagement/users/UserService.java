@@ -20,11 +20,11 @@ public class UserService implements  IUserService{
 
     @Override
     public List<UserDto> findAll() {
-        List<UserDto> userDtos = new ArrayList<>();
+        List<UserDto> listUserDto = new ArrayList<>();
         for (User user : userRepo.findAll()) {
-            userDtos.add(UserConverter.Converter(user));
+            listUserDto.add(UserConverter.Converter(user));
         }
-        return userDtos;
+        return listUserDto;
     }
 
     public Optional<User> findUser(Long userId) {

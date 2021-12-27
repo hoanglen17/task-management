@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface IHistoryRepo extends JpaRepository<History, Long> {
-    @Query("SELECT e FROM History e order by e.dateTime DESC ")
+    @Query("SELECT history FROM History history order by history.dateTime DESC ")
     List<History> findAllOrderByTimeDesc();
 
 }

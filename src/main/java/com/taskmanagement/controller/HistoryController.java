@@ -21,7 +21,7 @@ public class HistoryController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<History> createNewTask(@RequestBody History history) {
+    public ResponseEntity<History> createHistory(@RequestBody History history) {
         return new ResponseEntity<>(historyService.save(history), HttpStatus.OK);
     }
 }
