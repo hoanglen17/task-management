@@ -7,6 +7,7 @@ import com.taskmanagement.tasks.TaskDto;
 import com.taskmanagement.users.User;
 import com.taskmanagement.users.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/tasks")
 @AllArgsConstructor
+
 public class TaskController {
 
     private final ITaskService taskService;
-    private final IHistoryService historyService;
+    private final  IHistoryService historyService;
     private final UserService userService;
 
     @GetMapping("/get")
@@ -96,16 +98,16 @@ public class TaskController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Object> updateTask(@PathVariable Long id, @RequestBody TaskDto taskDto) {
-        return new ResponseEntity<>(taskService.updateTask(id,taskDto),HttpStatus.OK);
+        return new ResponseEntity<>(taskService.updateTask(id, taskDto), HttpStatus.OK);
     }
 
     @PutMapping("/update-status/{id}")
     public ResponseEntity<Object> updateTaskStatus(@PathVariable Long id, @RequestBody String status) {
-        return new ResponseEntity<>(taskService.updateStatusTask(id,status),HttpStatus.OK);
+        return new ResponseEntity<>(taskService.updateStatusTask(id, status), HttpStatus.OK);
     }
 
     @PutMapping("/update-point/{id}")
     public ResponseEntity<Object> updateTaskPoint(@PathVariable Long id, @RequestBody Integer point) {
-        return new ResponseEntity<>(taskService.updatePointTask(id,point),HttpStatus.CREATED);
+        return new ResponseEntity<>(taskService.updatePointTask(id, point), HttpStatus.OK);
     }
 }

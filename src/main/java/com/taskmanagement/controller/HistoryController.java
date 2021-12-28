@@ -3,7 +3,6 @@ package com.taskmanagement.controller;
 import com.taskmanagement.history.History;
 import com.taskmanagement.history.IHistoryService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/histories")
 @AllArgsConstructor
 public class HistoryController {
-    @Autowired
     private final IHistoryService historyService;
 
     @GetMapping("/get")

@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 @AllArgsConstructor
 public class UsersController {
-
-    @Autowired
     private final IUserService userService;
 
     @GetMapping("/get")

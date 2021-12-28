@@ -2,7 +2,13 @@ package com.taskmanagement.tasks;
 import com.taskmanagement.history.History;
 import com.taskmanagement.history.HistoryService;
 import com.taskmanagement.history.IHistoryRepo;
+import com.taskmanagement.users.User;
+import com.taskmanagement.users.UserService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -11,16 +17,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TaskService implements ITaskService {
-    @Autowired
+
     private final ITaskRepo taskRepo;
-    private TaskService taskService;
-    private HistoryService historyService;
-
-
-    public TaskService(ITaskRepo taskRepo) {
-        this.taskRepo = taskRepo;
-    }
+    private final HistoryService historyService;
 
     @Override
     public List<TaskDto> findAll() {
@@ -30,6 +31,7 @@ public class TaskService implements ITaskService {
         }
         return taskDtos;
     }
+
     @Override
     public List<TaskDto> findByPoint(Integer point) {
         List<TaskDto> taskDtos = new ArrayList<>();
@@ -39,6 +41,7 @@ public class TaskService implements ITaskService {
         }
         return taskDtos;
     }
+
     @Override
     public List<TaskDto> findByStatus(String status) {
         List<TaskDto> taskDtos = new ArrayList<>();
@@ -48,6 +51,7 @@ public class TaskService implements ITaskService {
         }
         return taskDtos;
     }
+
     @Override
     public List<TaskDto> getByStatusAscending ( ) {
         List<TaskDto> taskDtos = new ArrayList<>();
@@ -158,7 +162,7 @@ public class TaskService implements ITaskService {
 
     @Override
     public TaskDto updateStatusTask(Long id, String status){
-        Task taskFromDB = taskService.findById(id).get();
+        Task taskFromDB = findById(id).get();
         String taskHistoryInfo = new String() ;
         if((status.equals(taskFromDB.getStatus())) == false ){
             taskHistoryInfo = taskHistoryInfo + "Change " + "Status: " + taskFromDB.getStatus() + " to " + status + " ";
@@ -179,7 +183,7 @@ public class TaskService implements ITaskService {
     }
     @Override
     public TaskDto updateTask(Long id, TaskDto taskDto){
-        Task taskFromDB = taskService.findById(id).get();
+        Task taskFromDB = findById(id).get();
         String taskHistoryInfo = new String();
         if((taskDto.getDescription().equals(taskFromDB.getDescription())) == false ){
             taskHistoryInfo = "Change " + "Description: " + taskFromDB.getDescription() + " to " + taskDto.getDescription()+ " ";
@@ -208,13 +212,16 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public TaskDto updatePointTask(Long id, int point){
-        Task taskFromDB = taskService.findById(id).get();
+    public TaskDto updatePointTask(Long id, Integer point){
+        Task taskFromDB = findById(id).get();
         String taskHistoryInfo = new String() ;
         if(point != taskFromDB.getPoint()){
+            if(taskFromDB.getPoint() >= 0 && taskFromDB.getPoint() <= 5){
             taskHistoryInfo = taskHistoryInfo + "Change " + "Status: " + taskFromDB.getPoint() + " to " + point + " ";
             taskFromDB.setPoint(point);
             historyService.createHistory(taskFromDB.getId(),taskHistoryInfo);
+            save(taskFromDB);
+            }
         }
         return TaskConverter.Converter(taskFromDB);
     }
@@ -222,10 +229,5 @@ public class TaskService implements ITaskService {
     @Override
     public Task save(Task task) {
         return taskRepo.save(task);
-    }
-
-    @Override
-    public void remove(Long id) {
-        taskRepo.deleteById(id);
     }
 }
