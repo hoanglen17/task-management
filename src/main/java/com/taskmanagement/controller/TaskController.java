@@ -21,8 +21,6 @@ import java.util.Optional;
 public class TaskController {
 
     private final ITaskService taskService;
-    private final  IHistoryService historyService;
-    private final UserService userService;
 
     @GetMapping("/get")
     public ResponseEntity<Object> getAllTask() {
@@ -86,14 +84,7 @@ public class TaskController {
 
     @PostMapping("/create")
     public ResponseEntity<Object> createNewTask(@RequestBody TaskDto taskDto) {
-        User user = userService.findUser(taskDto.getUserId()).get();
-        Task task = TaskConverter.mapper(taskDto, user);
-        if(task.getPoint() >= 0 && task.getPoint() <= 5){
-            taskService.save(task);
-            return new ResponseEntity<>(taskService.findByIdDto(task.getId()), HttpStatus.OK);
-        }else{
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity<>(taskService.createTask(taskDto),HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")

@@ -22,14 +22,15 @@ public class TaskService implements ITaskService {
 
     private final ITaskRepo taskRepo;
     private final HistoryService historyService;
+    private final UserService userService;
 
     @Override
     public List<TaskDto> findAll() {
-        List<TaskDto> taskDtos = new ArrayList<>();
+        List<TaskDto> listTaskDto = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
-            taskDtos.add(TaskConverter.Converter(task));
+            listTaskDto.add(TaskConverter.Converter(task));
         }
-        return taskDtos;
+        return listTaskDto;
     }
 
     @Override
@@ -44,109 +45,109 @@ public class TaskService implements ITaskService {
 
     @Override
     public List<TaskDto> findByStatus(String status) {
-        List<TaskDto> taskDtos = new ArrayList<>();
+        List<TaskDto> listTaskDto = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals((status))){
-                taskDtos.add(TaskConverter.Converter(task));}
+                listTaskDto.add(TaskConverter.Converter(task));}
         }
-        return taskDtos;
+        return listTaskDto;
     }
 
     @Override
     public List<TaskDto> getByStatusAscending ( ) {
-        List<TaskDto> taskDtos = new ArrayList<>();
+        List<TaskDto> listTaskDto = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals("TODO")){
-                taskDtos.add(TaskConverter.Converter(task));
+                listTaskDto.add(TaskConverter.Converter(task));
             }
         }
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals("IN_PROGRESS")){
-                taskDtos.add(TaskConverter.Converter(task));}
+                listTaskDto.add(TaskConverter.Converter(task));}
         }
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals("DONE")){
-                taskDtos.add(TaskConverter.Converter(task));}
+                listTaskDto.add(TaskConverter.Converter(task));}
         }
-        return taskDtos;
+        return listTaskDto;
     }
 
     @Override
     public List<TaskDto> getByStatusDescending ( ) {
-        List<TaskDto> taskDtos = new ArrayList<>();
+        List<TaskDto> listTaskDto = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals("DONE")){
-                taskDtos.add(TaskConverter.Converter(task));}
+                listTaskDto.add(TaskConverter.Converter(task));}
         }
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals("IN_PROGRESS")){
-                taskDtos.add(TaskConverter.Converter(task));}
+                listTaskDto.add(TaskConverter.Converter(task));}
         }
         for (Task task : taskRepo.findAll()) {
             if(task.getStatus().equals("TODO")){
-                taskDtos.add(TaskConverter.Converter(task));}
+                listTaskDto.add(TaskConverter.Converter(task));}
         }
-        return taskDtos;
+        return listTaskDto;
     }
 
     @Override
     public List<TaskDto> getByPointAscending(){
-        List<TaskDto> taskDtos = new ArrayList<>();
+        List<TaskDto> listTaskDto = new ArrayList<>();
         for (Task task : taskRepo.findAllOrderByPointAsc()) {
-                taskDtos.add(TaskConverter.Converter(task));
+            listTaskDto.add(TaskConverter.Converter(task));
         }
-        return taskDtos;
+        return listTaskDto;
     }
 
     @Override
     public List<TaskDto> getByPointDescending(){
-        List<TaskDto> taskDtos = new ArrayList<>();
+        List<TaskDto> listTaskDto = new ArrayList<>();
         for (Task task : taskRepo.findAllOrderByPointDesc()) {
-            taskDtos.add(TaskConverter.Converter(task));
+            listTaskDto.add(TaskConverter.Converter(task));
         }
-        return taskDtos;
+        return listTaskDto;
     }
     @Override
     public List<TaskDto> findByDescription(String description) {
-        List<TaskDto> taskDtos = new ArrayList<>();
+        List<TaskDto> listTaskDto = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             if(task.getDescription().equals((description))){
-                taskDtos.add(TaskConverter.Converter(task));}
+                listTaskDto.add(TaskConverter.Converter(task));}
         }
-        return taskDtos;
+        return listTaskDto;
     }
     @Override
     public List<TaskDto> findByUser(Long id) {
-        List<TaskDto> taskDtos = new ArrayList<>();
+        List<TaskDto> listTaskDto = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             if(task.getUser().getId() == id){
-                taskDtos.add(TaskConverter.Converter(task));
+                listTaskDto.add(TaskConverter.Converter(task));
             }
         }
-        return taskDtos;
+        return listTaskDto;
     }
 
     @Override
     public List<TaskDto> findByParent(Long id) {
-        List<TaskDto> taskDtos = new ArrayList<>();
+        List<TaskDto> listTaskDto = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             if(task.getParentId() == id){
-                taskDtos.add(TaskConverter.Converter(task));
+                listTaskDto.add(TaskConverter.Converter(task));
             }
         }
-        return taskDtos;
+        return listTaskDto;
     }
 
     @Override
     public List<TaskDto> findByTaskType(String taskType) {
-        List<TaskDto> taskDtos = new ArrayList<>();
+        List<TaskDto> listTaskDto = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {
             TaskDto taskDto = TaskConverter.Converter(task);
             if(taskDto.getTaskType().equals(taskType)){
-                taskDtos.add(TaskConverter.Converter(task));
+                listTaskDto.add(TaskConverter.Converter(task));
             }
         }
-        return taskDtos;
+        return listTaskDto;
     }
 
     @Override
@@ -172,10 +173,6 @@ public class TaskService implements ITaskService {
             }else if (status.equals("DONE")){
                 taskFromDB.setEndDate(LocalDate.now());
                 taskFromDB.setStatus("DONE");
-            }else if(status.equals("TODO")){
-                taskFromDB.setStatus("TODO");
-                taskFromDB.setStartDate(null) ;
-                taskFromDB.setEndDate(null);
             }
             historyService.createHistory(taskFromDB.getId(),taskHistoryInfo);
         }
@@ -220,10 +217,21 @@ public class TaskService implements ITaskService {
             taskHistoryInfo = taskHistoryInfo + "Change " + "Status: " + taskFromDB.getPoint() + " to " + point + " ";
             taskFromDB.setPoint(point);
             historyService.createHistory(taskFromDB.getId(),taskHistoryInfo);
-            save(taskFromDB);
             }
         }
         return TaskConverter.Converter(taskFromDB);
+    }
+
+    @Override
+    public Object createTask(TaskDto taskDto){
+        User user = userService.findUser(taskDto.getUserId()).get();
+        Task task = TaskConverter.mapper(taskDto, user);
+        if(taskDto.getPoint()>= 0 && taskDto.getPoint()<=5){
+            save(task);
+            return TaskConverter.Converter(task);
+        }else{
+            return HttpStatus.BAD_REQUEST;
+        }
     }
 
     @Override

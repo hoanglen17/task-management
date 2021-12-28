@@ -20,5 +20,6 @@ public interface IGeneralService<Tasks> {
     TaskDto updateStatusTask(Long id, String status);
     TaskDto updateTask(Long id,TaskDto task);
     TaskDto updatePointTask(Long id, Integer point);
+    Object createTask(TaskDto task);
     Task save(Tasks task);
 }
