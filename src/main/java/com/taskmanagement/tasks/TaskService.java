@@ -1,14 +1,11 @@
 package com.taskmanagement.tasks;
 
-import com.taskmanagement.history.History;
-import com.taskmanagement.history.HistoryDto;
 import com.taskmanagement.history.HistoryService;
 import com.taskmanagement.users.User;
 import com.taskmanagement.users.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +19,6 @@ public class TaskService implements ITaskService {
     private final HistoryService historyService;
     private final UserService userService;
 
-
     @Override
     public List<TaskDto> findAll() {
         List<TaskDto> listTaskDto = new ArrayList<>();
@@ -33,129 +29,15 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public List<TaskDto> findByPoint(Integer point) {
+    public List<TaskDto> searchTask(TaskDto taskDto) {
+        Task taskFromDB = findById(taskDto.getId()).get();
         List<TaskDto> listTaskDto = new ArrayList<>();
-        for (Task task : taskRepo.findAll()) {
-            if (task.getPoint() == point) {
-                listTaskDto.add(TaskConverter.Converter(task));
-            }
-        }
-        return listTaskDto;
-    }
 
-    @Override
-    public List<TaskDto> findByStatus(String status) {
-        List<TaskDto> listTaskDto = new ArrayList<>();
-        for (Task task : taskRepo.findAll()) {
-            if (task.getStatus().equals((status))) {
-                listTaskDto.add(TaskConverter.Converter(task));
-            }
-        }
-        return listTaskDto;
-    }
 
-    @Override
-    public List<TaskDto> getByStatusAscending() {
-        List<TaskDto> listTaskDto = new ArrayList<>();
-        for (Task task : taskRepo.findAll()) {
-            if (task.getStatus().equals("TODO")) {
-                listTaskDto.add(TaskConverter.Converter(task));
-            }
-        }
-        for (Task task : taskRepo.findAll()) {
-            if (task.getStatus().equals("IN_PROGRESS")) {
-                listTaskDto.add(TaskConverter.Converter(task));
-            }
-        }
-        for (Task task : taskRepo.findAll()) {
-            if (task.getStatus().equals("DONE")) {
-                listTaskDto.add(TaskConverter.Converter(task));
-            }
-        }
-        return listTaskDto;
-    }
+        for (Task task : taskRepo.findAll()){
 
-    @Override
-    public List<TaskDto> getByStatusDescending() {
-        List<TaskDto> listTaskDto = new ArrayList<>();
-        for (Task task : taskRepo.findAll()) {
-            if (task.getStatus().equals("DONE")) {
-                listTaskDto.add(TaskConverter.Converter(task));
-            }
         }
-        for (Task task : taskRepo.findAll()) {
-            if (task.getStatus().equals("IN_PROGRESS")) {
-                listTaskDto.add(TaskConverter.Converter(task));
-            }
-        }
-        for (Task task : taskRepo.findAll()) {
-            if (task.getStatus().equals("TODO")) {
-                listTaskDto.add(TaskConverter.Converter(task));
-            }
-        }
-        return listTaskDto;
-    }
 
-    @Override
-    public List<TaskDto> getByPointAscending() {
-        List<TaskDto> listTaskDto = new ArrayList<>();
-        for (Task task : taskRepo.findAllOrderByPointAsc()) {
-            listTaskDto.add(TaskConverter.Converter(task));
-        }
-        return listTaskDto;
-    }
-
-    @Override
-    public List<TaskDto> getByPointDescending() {
-        List<TaskDto> listTaskDto = new ArrayList<>();
-        for (Task task : taskRepo.findAllOrderByPointDesc()) {
-            listTaskDto.add(TaskConverter.Converter(task));
-        }
-        return listTaskDto;
-    }
-
-    @Override
-    public List<TaskDto> findByDescription(String description) {
-        List<TaskDto> listTaskDto = new ArrayList<>();
-        for (Task task : taskRepo.findAll()) {
-            if (task.getDescription().equals((description))) {
-                listTaskDto.add(TaskConverter.Converter(task));
-            }
-        }
-        return listTaskDto;
-    }
-
-    @Override
-    public List<TaskDto> findByUser(Long id) {
-        List<TaskDto> listTaskDto = new ArrayList<>();
-        for (Task task : taskRepo.findAll()) {
-            if (task.getUser().getId() == id) {
-                listTaskDto.add(TaskConverter.Converter(task));
-            }
-        }
-        return listTaskDto;
-    }
-
-    @Override
-    public List<TaskDto> findByParent(Long id) {
-        List<TaskDto> listTaskDto = new ArrayList<>();
-        for (Task task : taskRepo.findAll()) {
-            if (task.getParent().getId() == id) {
-                listTaskDto.add(TaskConverter.Converter(task));
-            }
-        }
-        return listTaskDto;
-    }
-
-    @Override
-    public List<TaskDto> findByTaskType(String taskType) {
-        List<TaskDto> listTaskDto = new ArrayList<>();
-        for (Task task : taskRepo.findAll()) {
-            TaskDto taskDto = TaskConverter.Converter(task);
-            if (taskDto.getTaskType().equals(taskType)) {
-                listTaskDto.add(TaskConverter.Converter(task));
-            }
-        }
         return listTaskDto;
     }
 
