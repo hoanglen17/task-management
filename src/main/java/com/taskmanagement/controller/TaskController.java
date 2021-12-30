@@ -33,54 +33,9 @@ public class TaskController {
         return new ResponseEntity<>(taskService.findByIdDto(id),HttpStatus.OK);
     }
 
-    @GetMapping("/get-by-status/ascending")
-    public ResponseEntity<Object> getTaskByStatusAscending () {
-        return new ResponseEntity<>(taskService.getByStatusAscending(),HttpStatus.OK);
-    }
-
-    @GetMapping("/get-by-status/descending")
-    public ResponseEntity<Object> getTaskByStatusDescending () {
-        return new ResponseEntity<>(taskService.getByStatusDescending(),HttpStatus.OK);
-    }
-
-    @GetMapping("/get-by-point/ascending")
-    public ResponseEntity<Object> getTaskByPointAscending () {
-        return new ResponseEntity<>(taskService.getByPointAscending(),HttpStatus.OK);
-    }
-
-    @GetMapping("/get-by-point/descending")
-    public ResponseEntity<Object> getByPointDescending () {
-        return new ResponseEntity<>(taskService.getByPointDescending(),HttpStatus.OK);
-    }
-
-    @GetMapping("/find-by-point")
-    public ResponseEntity<Object> findByPoint(@RequestBody Integer point) {
-        return new ResponseEntity<>(taskService.findByPoint(point),HttpStatus.OK);
-    }
-
-    @GetMapping("/find-by-description")
-    public ResponseEntity<Object> findByDescription(@RequestBody String description) {
-        return new ResponseEntity<>(taskService.findByDescription(description),HttpStatus.OK);
-    }
-
-    @GetMapping("/find-by-user")
-    public ResponseEntity<Object> findByUser(@RequestBody Long idUser) {
-        return new ResponseEntity<>(taskService.findByUser(idUser),HttpStatus.OK);
-    }
-
-    @GetMapping("/find-by-parent")
-    public ResponseEntity<Object> findByParent(@RequestBody Long idParent) {
-        return new ResponseEntity<>(taskService.findByParent(idParent),HttpStatus.OK);
-    }
-
-    @GetMapping("/find-by-status")
-    public ResponseEntity<Object> findTaskByStatus(@RequestBody String status) {
-        return new ResponseEntity<>(taskService.findByStatus(status),HttpStatus.OK);
-    }
-
-    @GetMapping("/find-by-tasktype")
-    public ResponseEntity<Object> findTaskByTaskType(@RequestBody String status) {
-        return new ResponseEntity<>(taskService.findByTaskType(status),HttpStatus.OK);
+    @GetMapping("/search")
+    public ResponseEntity<Object> searchTask (TaskDto taskDto) {
+        return new ResponseEntity<>(taskService.searchTask(taskDto),HttpStatus.OK);
     }
 
     @PostMapping("/create")

@@ -30,6 +30,7 @@ public class HistoryService implements IHistoryService{
         }
         return history;
     }
+
     @Override
     public List<HistoryDto> findAllDto() {
         List<HistoryDto> listHistoryDto = new ArrayList<>();
