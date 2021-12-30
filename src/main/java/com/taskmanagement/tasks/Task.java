@@ -20,5 +20,7 @@ public class Task {
     private String status;
     private LocalDate startDate;
     private LocalDate endDate;
-    private Long parentId;
+    @ManyToOne
+    @JoinColumn(name = "parent_id")
+    private Task parent;
 }

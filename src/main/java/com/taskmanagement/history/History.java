@@ -14,6 +14,7 @@ public class History {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long idTask;
+    private String descriptionTask;
     private String info;
     private LocalDateTime dateTime;
 }

@@ -1,4 +1,7 @@
 package com.taskmanagement.history;
+import com.taskmanagement.tasks.Task;
+import com.taskmanagement.tasks.TaskService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,13 +11,24 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class HistoryService implements IHistoryService{
-    @Autowired
-    private IHistoryRepo historyRepo;
+    private final IHistoryRepo historyRepo;
 
     @Override
     public Iterable<History> findAll() {
         return historyRepo.findAll();
+    }
+
+    @Override
+    public History findByTaskId(Long id){
+        History history = new History();
+        for (History historyFind : historyRepo.findAllOrderByTimeDesc()) {
+            if(history.getIdTask() == id){
+                history = historyFind;
+            }
+        }
+        return history;
     }
     @Override
     public List<HistoryDto> findAllDto() {
@@ -25,12 +39,13 @@ public class HistoryService implements IHistoryService{
         return listHistoryDto;
     }
     @Override
-    public History createHistory(Long taskId, String info){
+    public History createHistory(Long taskId,String descriptionTask, String info){
         History history = new History();
         history.setIdTask(taskId);
         LocalDateTime time = LocalDateTime.now();
         history.setDateTime(time);
         history.setInfo(info);
+        history.setDescriptionTask(descriptionTask);
         return historyRepo.save(history);
     }
     @Override

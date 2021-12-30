@@ -4,6 +4,7 @@ public class HistoryConverter {
     public static HistoryDto Converter(History history){
         HistoryDto dto = new HistoryDto();
         dto.setIdTask(history.getIdTask());
+        dto.setDescriptionTask(history.getDescriptionTask());
         dto.setInfo(history.getInfo());
         dto.setTime(history.getDateTime());
         return dto;

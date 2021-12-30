@@ -5,6 +5,7 @@ import com.taskmanagement.tasks.Task;
 import com.taskmanagement.tasks.TaskConverter;
 import com.taskmanagement.tasks.TaskDto;
 import com.taskmanagement.users.User;
+import com.taskmanagement.users.UserDto;
 import com.taskmanagement.users.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/tasks")
 @AllArgsConstructor
-
 public class TaskController {
 
     private final ITaskService taskService;
@@ -28,7 +29,7 @@ public class TaskController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<TaskDto> findByIdDto(@PathVariable Long id) {
+    public ResponseEntity<List<TaskDto>> findByIdDto(@PathVariable Long id) {
         return new ResponseEntity<>(taskService.findByIdDto(id),HttpStatus.OK);
     }
 
@@ -91,14 +92,8 @@ public class TaskController {
     public ResponseEntity<Object> updateTask(@PathVariable Long id, @RequestBody TaskDto taskDto) {
         return new ResponseEntity<>(taskService.updateTask(id, taskDto), HttpStatus.OK);
     }
-
-    @PutMapping("/update-status/{id}")
-    public ResponseEntity<Object> updateTaskStatus(@PathVariable Long id, @RequestBody String status) {
-        return new ResponseEntity<>(taskService.updateStatusTask(id, status), HttpStatus.OK);
-    }
-
-    @PutMapping("/update-point/{id}")
-    public ResponseEntity<Object> updateTaskPoint(@PathVariable Long id, @RequestBody Integer point) {
-        return new ResponseEntity<>(taskService.updatePointTask(id, point), HttpStatus.OK);
+    @PutMapping("/re-assign/{id}")
+    public ResponseEntity<Object> reAssignTask(@PathVariable Long id, @RequestBody Long userId) {
+        return new ResponseEntity<>(taskService.reAssignTask(id, userId), HttpStatus.OK);
     }
 }

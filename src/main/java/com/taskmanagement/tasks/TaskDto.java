@@ -9,10 +9,12 @@ public class TaskDto {
     private Long id;
     private String taskType;
     private String description;
+    private Long userId;
+    private String userName;
+    private Long parentId;
+    private String parentName;
+    private Integer point;
+    private String status;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String status;
-    private Integer point;
-    private Long userId;
-    private Long parentId;
 }

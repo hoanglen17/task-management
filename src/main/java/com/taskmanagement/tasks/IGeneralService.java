@@ -10,16 +10,15 @@ public interface IGeneralService<Tasks> {
     List<TaskDto> getByPointDescending();
     List<TaskDto> findAll();
     Optional<Tasks> findById(Long id);
-    TaskDto findByIdDto(Long id);
+    List<TaskDto> findByIdDto(Long id);
     List<TaskDto> findByPoint(Integer point);
     List<TaskDto> findByStatus(String status);
     List<TaskDto> findByDescription (String description);
     List<TaskDto> findByUser (Long id);
     List<TaskDto> findByParent(Long id);
     List<TaskDto> findByTaskType(String taskType);
-    TaskDto updateStatusTask(Long id, String status);
-    TaskDto updateTask(Long id,TaskDto task);
-    TaskDto updatePointTask(Long id, Integer point);
+    Object updateTask(Long id,TaskDto task);
+    Object reAssignTask(Long id, Long userId);
     Object createTask(TaskDto task);
     Task save(Tasks task);
 }
