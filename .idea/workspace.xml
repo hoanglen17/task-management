@@ -4,7 +4,50 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc9dcc4d-31fc-4f9a-a1a5-b52b7ef749e1" name="Changes" comment="Update Code 30-12-2021 Build search Task" />
+    <list default="true" id="dc9dcc4d-31fc-4f9a-a1a5-b52b7ef749e1" name="Changes" comment="Update Code 30-12-2021 Build search Task">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.jpb/jpb-settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task-Management.postman_collection_v1.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Task-Management.postman_collection_v2.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/TaskManagementApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/controller/HistoryController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/controller/TaskController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/controller/UsersController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/history/History.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/history/HistoryConverter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/history/HistoryDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/history/HistoryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/history/IGeneralService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/history/IHistoryRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/history/IHistoryService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/IGeneralService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/ITaskRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/ITaskService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/Task.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskConverter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/users/IGeneralService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/users/IUserRepo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/users/IUserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/users/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/users/UserConverter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/users/UserDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/users/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -161,7 +204,7 @@
       <workItem from="1640871586190" duration="378000" />
       <workItem from="1640872027957" duration="612000" />
       <workItem from="1640872804731" duration="1892000" />
-      <workItem from="1640932548651" duration="1247000" />
+      <workItem from="1640932548651" duration="1381000" />
     </task>
     <task id="LOCAL-00001" summary="Update Code 28-12-2021">
       <created>1640670637910</created>
@@ -212,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640933706874</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Update Code 30-12-2021 Build search Task">
+      <created>1640933819213</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1640933819213</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
