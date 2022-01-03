@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc9dcc4d-31fc-4f9a-a1a5-b52b7ef749e1" name="Changes" comment="Update Code 02-01-2022 Build search Task" />
+    <list default="true" id="dc9dcc4d-31fc-4f9a-a1a5-b52b7ef749e1" name="Changes" comment="Update Code 02-01-2022 Build search Task">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -114,7 +117,19 @@
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Spring Boot.TaskManagementApplication">
+  <component name="RunManager" selected="Application.TaskManagementApplication">
+    <configuration name="TaskManagementApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.taskmanagement.TaskManagementApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.taskmanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TaskService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.taskmanagement.tasks.TaskService" />
       <module name="task-management.main" />
@@ -143,11 +158,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.TaskManagementApplication" />
         <item itemvalue="Spring Boot.TaskManagementApplication" />
         <item itemvalue="Application.TaskService" />
         <item itemvalue="Spring Boot.TaskManagementApplication" />
         <item itemvalue="Application.TaskService" />
-        <item itemvalue="Spring Boot.TaskManagementApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -174,7 +189,7 @@
       <workItem from="1640934297311" duration="5945000" />
       <workItem from="1641022005501" duration="5087000" />
       <workItem from="1641104349491" duration="4144000" />
-      <workItem from="1641178201271" duration="184000" />
+      <workItem from="1641178930818" duration="194000" />
     </task>
     <task id="LOCAL-00001" summary="Update Code 28-12-2021">
       <created>1640670637910</created>
@@ -253,14 +268,7 @@
       <option name="project" value="LOCAL" />
       <updated>1641108481446</updated>
     </task>
-    <task id="LOCAL-00012" summary="Update Code 02-01-2022 Build search Task">
-      <created>1641178378468</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1641178378468</updated>
-    </task>
-    <option name="localTasksCounter" value="13" />
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
