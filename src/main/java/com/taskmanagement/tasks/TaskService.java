@@ -33,8 +33,14 @@ public class TaskService implements ITaskService {
     @Override
     public List<TaskDto> searchTask(SearchTaskDto taskDto) {
         List<TaskDto> listTaskDto = new ArrayList<>();
-        for (Task task : taskRepo.searchTaskASC(taskDto.getDescription(), taskDto.getUserId(),taskDto.getUserFirstName(),taskDto.getUserLastName(),taskDto.getPoint(), taskDto.getPointMin(), taskDto.getPointMax(), taskDto.getStatus())) {
-            listTaskDto.add(TaskConverter.Converter(task));
+        if (taskDto.getSorting() == null || taskDto.getSorting().equals("ASC")) {
+            for (Task task : taskRepo.searchTaskASC(taskDto.getDescription(), taskDto.getUserId(), taskDto.getUserFirstName(), taskDto.getUserLastName(), taskDto.getPoint(), taskDto.getPointMin(), taskDto.getPointMax(), taskDto.getStatus())) {
+                listTaskDto.add(TaskConverter.Converter(task));
+            }
+        }else{
+            for (Task task : taskRepo.searchTaskDESC(taskDto.getDescription(), taskDto.getUserId(), taskDto.getUserFirstName(), taskDto.getUserLastName(), taskDto.getPoint(), taskDto.getPointMin(), taskDto.getPointMax(), taskDto.getStatus())) {
+                listTaskDto.add(TaskConverter.Converter(task));
+            }
         }
         return listTaskDto;
     }
