@@ -11,6 +11,7 @@ public class SearchTaskDto {
     private Integer pointMin;
     private Integer pointMax;
     private Long userId;
-    private String userName;
+    private String userFirstName;
+    private String userLastName;
     private String sorting;
 }

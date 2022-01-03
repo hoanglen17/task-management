@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc9dcc4d-31fc-4f9a-a1a5-b52b7ef749e1" name="Changes" comment="Update Code 03-01-2022 Testing">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_1_3_2022_9_58_AM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_1_3_2022_9_58_AM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/ITaskRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/ITaskRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/SearchTaskDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/SearchTaskDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -222,16 +223,16 @@
     </configuration>
     <list>
       <item itemvalue="Application.TaskService" />
-      <item itemvalue="Spring Boot.TaskManagementApplication" />
       <item itemvalue="Application.TaskManagementApplication" />
       <item itemvalue="Application.TaskManagementApplication (1)" />
       <item itemvalue="Gradle.task-management" />
       <item itemvalue="Spring Boot.TaskManagementApplication (1)" />
+      <item itemvalue="Spring Boot.TaskManagementApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.task-management" />
         <item itemvalue="Application.TaskManagementApplication (1)" />
+        <item itemvalue="Gradle.task-management" />
         <item itemvalue="Application.TaskManagementApplication" />
         <item itemvalue="Spring Boot.TaskManagementApplication" />
         <item itemvalue="Application.TaskService" />
@@ -261,6 +262,8 @@
       <workItem from="1640934297311" duration="5945000" />
       <workItem from="1641022005501" duration="5087000" />
       <workItem from="1641104349491" duration="4144000" />
+      <workItem from="1641180536537" duration="1138000" />
+      <workItem from="1641191588291" duration="1631000" />
     </task>
     <task id="LOCAL-00001" summary="Update Code 28-12-2021">
       <created>1640670637910</created>
@@ -339,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641108481446</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Update Code 03-01-2022 Testing">
+      <created>1641180563033</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1641180563033</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -380,7 +390,8 @@
     <MESSAGE value="Update Code 30-12-2021 Build search Task" />
     <MESSAGE value="Update Code 31-12-2021 Build search Task" />
     <MESSAGE value="Update Code 02-01-2022 Build search Task" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Code 02-01-2022 Build search Task" />
+    <MESSAGE value="Update Code 03-01-2022 Testing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Code 03-01-2022 Testing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
