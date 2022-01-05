@@ -1,13 +1,20 @@
 package com.taskmanagement.tasks;
 
-import com.taskmanagement.history.History;
 import com.taskmanagement.history.HistoryService;
 import com.taskmanagement.users.User;
 import com.taskmanagement.users.UserService;
+import javassist.runtime.Desc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +28,17 @@ public class TaskService implements ITaskService {
     private final HistoryService historyService;
     private final UserService userService;
 
+    @PersistenceContext
+    EntityManager em;
+
+    @Override
+    public List<Task> test(Integer id) {
+        String len = "SELECT * FROM Task  where parent_id = ?";
+        Query query = em.createNativeQuery(len);
+        query.setParameter(1, id);
+        return query.getResultList();
+    }
+
     @Override
     public List<TaskDto> findAll() {
         List<TaskDto> listTaskDto = new ArrayList<>();
@@ -31,19 +49,67 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public List<TaskDto> searchTask(SearchTaskDto taskDto) {
-        List<TaskDto> listTaskDto = new ArrayList<>();
-        if (taskDto.getSorting() == null || taskDto.getSorting().equals("ASC")) {
-            for (Task task : taskRepo.searchTaskASC(taskDto.getDescription(), taskDto.getUserId(), taskDto.getUserFirstName(), taskDto.getUserLastName(), taskDto.getPoint(), taskDto.getPointMin(), taskDto.getPointMax(), taskDto.getStatus())) {
-                listTaskDto.add(TaskConverter.Converter(task));
-            }
-        }else{
-            for (Task task : taskRepo.searchTaskDESC(taskDto.getDescription(), taskDto.getUserId(), taskDto.getUserFirstName(), taskDto.getUserLastName(), taskDto.getPoint(), taskDto.getPointMin(), taskDto.getPointMax(), taskDto.getStatus())) {
-                listTaskDto.add(TaskConverter.Converter(task));
+    public List<TaskDto> searchTask(SearchTaskDto searchTaskDto) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Task> cq = cb.createQuery(Task.class);
+
+        Root<Task> task = cq.from(Task.class);
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (searchTaskDto.getId() != null) {
+            predicates.add(cb.equal(task.get("id"), searchTaskDto.getId()));
+        }
+        if (searchTaskDto.getDescription() != null) {
+            predicates.add(cb.like(task.get("description"), "%" + searchTaskDto.getDescription() + "%"));
+        }
+        if (searchTaskDto.getPoint() != null) {
+            predicates.add(cb.equal(task.get("point"), searchTaskDto.getPoint()));
+        }
+        if (searchTaskDto.getPointMin() != null) {
+            predicates.add(cb.between(task.get("point"), searchTaskDto.getPointMin(), searchTaskDto.getPointMax()));
+        }
+        if (searchTaskDto.getPointMax() != null) {
+            predicates.add(cb.between(task.get("point"), searchTaskDto.getPointMin(), searchTaskDto.getPointMax()));
+        }
+        if (searchTaskDto.getStatus() != null) {
+            predicates.add(cb.like(task.get("status"), "%" + searchTaskDto.getStatus() + "%"));
+        }
+        if (searchTaskDto.getUserId() != null) {
+            predicates.add(cb.equal(task.get("user").get("id"), searchTaskDto.getUserId()));
+        }
+        if (searchTaskDto.getUserFirstName() != null) {
+            predicates.add(cb.like(task.get("user").get("firstName"), "%" + searchTaskDto.getUserFirstName() + "%"));
+        }
+        if (searchTaskDto.getUserLastName() != null) {
+            predicates.add(cb.like(task.get("user").get("lastName"), "%" + searchTaskDto.getUserLastName() + "%"));
+        }
+
+        if(searchTaskDto.getSortingPoint() !=null ){
+            if(searchTaskDto.getSortingPoint().equals("ASC")){
+                cq.orderBy(cb.asc(task.get("point")));
+            }else if (searchTaskDto.getSortingPoint().equals("DESC")){
+                cq.orderBy(cb.desc(task.get("point")));
             }
         }
-        return listTaskDto;
+        if(searchTaskDto.getSortingStatus() !=null ){
+            if(searchTaskDto.getSortingStatus().equals("ASC")){
+                cq.orderBy(cb.asc(task.get("pointStatus")));
+            }else if (searchTaskDto.getSortingStatus().equals("DESC")){
+                cq.orderBy(cb.desc(task.get("pointStatus")));
+            }
+        }
+
+        cq.where(predicates.toArray(new Predicate[0]));
+        List<TaskDto> taskList = new ArrayList<>();
+        if(searchTaskDto != null){
+            for (Task taskFind : em.createQuery(cq).getResultList()) {
+                TaskDto taskDto = TaskConverter.Converter(taskFind);
+                taskList.add(taskDto);
+            }
+        }
+        return taskList;
     }
+
 
     @Override
     public Optional<Task> findById(Long id) {
@@ -95,9 +161,11 @@ public class TaskService implements ITaskService {
             if (taskDto.getStatus().equals("IN_PROGRESS")) {
                 taskFromDB.setStartDate(LocalDate.now());
                 taskFromDB.setStatus("IN_PROGRESS");
+                taskFromDB.setPointStatus("IN_PROGRESS");
             } else if (taskDto.getStatus().equals("DONE")) {
                 taskFromDB.setEndDate(LocalDate.now());
                 taskFromDB.setStatus("DONE");
+                taskFromDB.setPointStatus("DONE");
             }
             save(taskFromDB);
         }
@@ -133,6 +201,7 @@ public class TaskService implements ITaskService {
         taskHistoryInfo = taskHistoryInfo + "UserID: " + task.getUser().getId() + " ";
         taskHistoryInfo = taskHistoryInfo + "Assign: " + task.getUser().getFirstName() + " " + task.getUser().getLastName() + " ";
         task.setStatus("TODO");
+        task.setPointStatus("TODO");
         if (taskDto.getPoint() >= 0 && taskDto.getPoint() <= 5) {
             save(task);
             historyService.createHistory(task.getId(), task.getDescription(), taskHistoryInfo);

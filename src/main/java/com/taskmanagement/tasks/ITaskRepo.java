@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ITaskRepo extends JpaRepository<Task, Long> {
+    
     @Query(value = "SELECT * FROM Task task " +
             "inner join t_user user on task.user_id = user.id " +
             "where (isnull(:description) or task.description like %:description%) " +
@@ -22,15 +23,7 @@ public interface ITaskRepo extends JpaRepository<Task, Long> {
             "order by task.description ASC,  task.user_id ASC, user.last_name ASC, task.point ASC, task.status ASC", nativeQuery = true)
     List<Task> searchTaskASC(@Param("description") String description, @Param("userId") Long id,@Param("firstName") String firstName,@Param("lastName") String lastName,@Param("point") Integer point, @Param("pointMin") Integer pointMin,@Param("pointMax") Integer pointMax, @Param("status") String Status);
 
-    @Query("SELECT task FROM Task task " +
-            "where (:description = NULL or task.description like %:description%) " +
-            "and (:userId = NULL or task.user.id = :userId) "+
-            "and (:firstName = NULL or task.user.firstName like %:firstName%) " +
-            "and (:lastName = NULL or  task.user.lastName like %:lastName%) " +
-            "and (:point = Null or task.point =:point)" +
-            "and (:pointMin = Null or task.point between :pointMin and :pointMax)" +
-            "and (:pointMax = Null or task.point between :pointMin and :pointMax)" +
-            "and (:status = Null or task.status like %:status%)"+
-            "order by :description DESC , :lastName DESC, task.point ASC, :status DESC")
-    List<Task> searchTaskDESC(@Param("description") String description, @Param("userId") Long id,@Param("firstName") String firstName,@Param("lastName") String lastName,@Param("point") Integer point, @Param("pointMin") Integer pointMin,@Param("pointMax") Integer pointMax, @Param("status") String Status);
+    @Query(value = ":id",nativeQuery = true)
+    List<Task> selectAll(@Param("id") String id);
+
 }

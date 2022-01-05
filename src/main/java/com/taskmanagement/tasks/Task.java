@@ -15,10 +15,11 @@ public class Task {
     private Long id;
     private String description;
     private Integer point;
+    private String status;
+    private Integer pointStatus;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    private String status;
     private LocalDate startDate;
     private LocalDate endDate;
     @ManyToOne
@@ -27,4 +28,16 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "history_id")
     private History history;
+
+    public void setPointStatus(String status){
+        if(status.equals("TODO")){
+            this.pointStatus = 1;
+        }
+        if(status.equals("IN_PROGRESS")){
+            this.pointStatus = 2;
+        }
+        if(status.equals("DONE")){
+            this.pointStatus = 3;
+        }
+    }
 }

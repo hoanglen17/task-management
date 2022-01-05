@@ -14,4 +14,6 @@ public class SearchTaskDto {
     private String userFirstName;
     private String userLastName;
     private String sorting;
+    private String sortingPoint;
+    private String sortingStatus;
 }
