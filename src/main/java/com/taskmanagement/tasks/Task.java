@@ -25,9 +25,6 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Task parent;
-    @ManyToOne
-    @JoinColumn(name = "history_id")
-    private History history;
 
     public void setPointStatus(String status){
         if(status.equals("TODO")){

@@ -32,14 +32,6 @@ public class TaskService implements ITaskService {
     EntityManager em;
 
     @Override
-    public List<Task> test(Integer id) {
-        String len = "SELECT * FROM Task  where parent_id = ?";
-        Query query = em.createNativeQuery(len);
-        query.setParameter(1, id);
-        return query.getResultList();
-    }
-
-    @Override
     public List<TaskDto> findAll() {
         List<TaskDto> listTaskDto = new ArrayList<>();
         for (Task task : taskRepo.findAll()) {

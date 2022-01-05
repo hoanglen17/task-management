@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/IGeneralService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/IGeneralService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/ITaskRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/ITaskRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/Task.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -206,35 +207,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TaskManagementApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="task-management.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.taskmanagement.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.taskmanagement.TaskManagementApplication" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.TaskService" />
       <item itemvalue="Application.TaskManagementApplication" />
       <item itemvalue="Application.TaskManagementApplication (1)" />
       <item itemvalue="Gradle.task-management" />
       <item itemvalue="Spring Boot.TaskManagementApplication (1)" />
-      <item itemvalue="Spring Boot.TaskManagementApplication" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.TaskManagementApplication (1)" />
         <item itemvalue="Gradle.task-management" />
         <item itemvalue="Application.TaskManagementApplication" />
-        <item itemvalue="Spring Boot.TaskManagementApplication" />
         <item itemvalue="Application.TaskService" />
       </list>
     </recent_temporary>
@@ -265,7 +249,8 @@
       <workItem from="1641180536537" duration="1138000" />
       <workItem from="1641191588291" duration="2241000" />
       <workItem from="1641206734753" duration="12484000" />
-      <workItem from="1641349442019" duration="7071000" />
+      <workItem from="1641349442019" duration="9305000" />
+      <workItem from="1641364610100" duration="270000" />
     </task>
     <task id="LOCAL-00001" summary="Update Code 28-12-2021">
       <created>1640670637910</created>
@@ -372,7 +357,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641212497184</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Update Code 03-01-2022 Testing">
+      <created>1641364246104</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1641364246104</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
