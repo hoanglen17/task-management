@@ -2,17 +2,17 @@
  insert into t_user (id, first_name, last_name) values (2, 'Nguyen Thi Hoang', 'Huyen');
 
 
- insert into task (id, description, parent_id, point,point_status, status,user_id)
- values(1, 'description1', 1,4,1,'TODO',1);
+ insert into task (id, description, parent_id, point, status,user_id)
+ values(1, 'description1', 1,4,'TODO',1);
 
- insert into task (id, description, parent_id, point, point_status,status,start_date,user_id)
- values(2, 'description2', 2,3,2,'IN_PROGRESS','2021-10-17',2);
+ insert into task (id, description, parent_id, point, status,start_date,user_id)
+ values(2, 'description2', 2,3,'IN_PROGRESS','2021-10-17',2);
 
- insert into task (id, description, parent_id, point, point_status,status,start_date,end_date,user_id)
- values(3, 'description3', 1,2,3,'DONE','2021-10-17','2021-10-27',1);
+ insert into task (id, description, parent_id, point, status,start_date,end_date,user_id)
+ values(3, 'description3', 1,2,'DONE','2021-10-17','2021-10-27',1);
 
- insert into task (id, description, parent_id, point, point_status,status,user_id)
- values(4, 'description4', 2,1,1,'TODO',2);
+ insert into task (id, description, parent_id, point, status,user_id)
+ values(4, 'description4', 2,1,'TODO',2);
 
 
 insert into history (id, id_task,description_task,date_time,info)

@@ -3,14 +3,13 @@ package com.taskmanagement.tasks;
 import com.taskmanagement.history.HistoryService;
 import com.taskmanagement.users.User;
 import com.taskmanagement.users.UserService;
-import javassist.runtime.Desc;
 import lombok.RequiredArgsConstructor;
+import org.junit.runner.RunWith;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -22,6 +21,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+
 public class TaskService implements ITaskService {
 
     private final ITaskRepo taskRepo;
@@ -76,24 +76,23 @@ public class TaskService implements ITaskService {
             predicates.add(cb.like(task.get("user").get("lastName"), "%" + searchTaskDto.getUserLastName() + "%"));
         }
 
-        if(searchTaskDto.getSortingPoint() !=null ){
-            if(searchTaskDto.getSortingPoint().equals("ASC")){
+        if (searchTaskDto.getSortingPoint() != null) {
+            if (searchTaskDto.getSortingPoint().equals("ASC")) {
                 cq.orderBy(cb.asc(task.get("point")));
-            }else if (searchTaskDto.getSortingPoint().equals("DESC")){
+            } else if (searchTaskDto.getSortingPoint().equals("DESC")) {
                 cq.orderBy(cb.desc(task.get("point")));
             }
         }
-        if(searchTaskDto.getSortingStatus() !=null ){
-            if(searchTaskDto.getSortingStatus().equals("ASC")){
-                cq.orderBy(cb.asc(task.get("pointStatus")));
-            }else if (searchTaskDto.getSortingStatus().equals("DESC")){
-                cq.orderBy(cb.desc(task.get("pointStatus")));
+        if (searchTaskDto.getSortingStatus() != null) {
+            if (searchTaskDto.getSortingStatus().equals("ASC")) {
+                cq.orderBy(cb.asc(task.get("status")));
+            } else if (searchTaskDto.getSortingStatus().equals("DESC")) {
+                cq.orderBy(cb.desc(task.get("status")));
             }
         }
-
         cq.where(predicates.toArray(new Predicate[0]));
         List<TaskDto> taskList = new ArrayList<>();
-        if(searchTaskDto != null){
+        if (searchTaskDto != null) {
             for (Task taskFind : em.createQuery(cq).getResultList()) {
                 TaskDto taskDto = TaskConverter.Converter(taskFind);
                 taskList.add(taskDto);
@@ -127,41 +126,40 @@ public class TaskService implements ITaskService {
     @Override
     public Object updateTask(Long id, TaskDto taskDto) {
         Task taskFromDB = findById(id).get();
-        String taskHistoryInfo = new String();
-        taskHistoryInfo = "Update Task: ";
-        if ((taskDto.getUserId() != taskFromDB.getUser().getId())) {
-            taskHistoryInfo = taskHistoryInfo + "Assign: " + taskFromDB.getUser().getFirstName() + " " + taskFromDB.getUser().getLastName() + " to " + taskDto.getUserName() + " ";
-            taskFromDB.setUser(userService.findUser(taskDto.getUserId()).get());
-            save(taskFromDB);
-        }
-        if ((taskDto.getDescription().equals(taskFromDB.getDescription())) == false) {
-            taskHistoryInfo = taskHistoryInfo + "Description: " + taskFromDB.getDescription() + " to " + taskDto.getDescription() + " ";
-            taskFromDB.setDescription(taskDto.getDescription());
-            save(taskFromDB);
-        }
-        if (taskDto.getPoint() != taskFromDB.getPoint()) {
-            if (taskDto.getPoint() >= 0 && taskDto.getPoint() <= 5) {
-                taskHistoryInfo = taskHistoryInfo + "Point: " + taskFromDB.getPoint() + " to " + taskDto.getPoint() + " ";
-                taskFromDB.setPoint(taskDto.getPoint());
+        String taskHistoryInfo = "Update Task: ";
+        if (taskDto != null) {
+            if ((taskFromDB.getUser().getId()) != taskDto.getId() && taskDto.getId() != null) {
+                taskHistoryInfo = taskHistoryInfo + "Assign: " + taskFromDB.getUser().getFirstName() + " " + taskFromDB.getUser().getLastName() + " to " + taskDto.getUserName() + " ";
+                taskFromDB.setUser(userService.findUser(taskDto.getId()).get());
                 save(taskFromDB);
-            } else {
-                return HttpStatus.BAD_REQUEST;
             }
-        }
-        if ((taskDto.getStatus().equals(taskFromDB.getStatus())) == false) {
-            taskHistoryInfo = taskHistoryInfo + "Status: " + taskFromDB.getStatus() + " to " + taskDto.getStatus() + " ";
-            if (taskDto.getStatus().equals("IN_PROGRESS")) {
-                taskFromDB.setStartDate(LocalDate.now());
-                taskFromDB.setStatus("IN_PROGRESS");
-                taskFromDB.setPointStatus("IN_PROGRESS");
-            } else if (taskDto.getStatus().equals("DONE")) {
-                taskFromDB.setEndDate(LocalDate.now());
-                taskFromDB.setStatus("DONE");
-                taskFromDB.setPointStatus("DONE");
+            if (((taskFromDB.getDescription().equals(taskDto.getDescription())) == false) && taskDto.getDescription() != null) {
+                taskHistoryInfo = taskHistoryInfo + "Description: " + taskFromDB.getDescription() + " to " + taskDto.getDescription() + " ";
+                taskFromDB.setDescription(taskDto.getDescription());
+                save(taskFromDB);
             }
-            save(taskFromDB);
+            if (taskFromDB.getPoint() != taskDto.getPoint() && taskDto.getPoint() != null) {
+                if (taskDto.getPoint() >= 0 && taskDto.getPoint() <= 5) {
+                    taskHistoryInfo = taskHistoryInfo + "Point: " + taskFromDB.getPoint() + " to " + taskDto.getPoint() + " ";
+                    taskFromDB.setPoint(taskDto.getPoint());
+                    save(taskFromDB);
+                } else {
+                    return HttpStatus.BAD_REQUEST;
+                }
+            }
+            if (((taskFromDB.getStatus().equals(taskDto.getStatus())) == false) && taskDto.getDescription() != null) {
+                taskHistoryInfo = taskHistoryInfo + "Status: " + taskFromDB.getStatus() + " to " + taskDto.getStatus() + " ";
+                if (taskDto.getStatus().equals("IN_PROGRESS")) {
+                    taskFromDB.setStartDate(LocalDate.now());
+                    taskFromDB.setStatus("IN_PROGRESS");
+                } else if (taskDto.getStatus().equals("DONE")) {
+                    taskFromDB.setEndDate(LocalDate.now());
+                    taskFromDB.setStatus("DONE");
+                }
+                save(taskFromDB);
+            }
+            historyService.createHistory(taskFromDB.getId(), taskFromDB.getDescription(), taskHistoryInfo);
         }
-        historyService.createHistory(taskFromDB.getId(), taskFromDB.getDescription(), taskHistoryInfo);
         return TaskConverter.Converter(taskFromDB);
     }
 
@@ -176,8 +174,8 @@ public class TaskService implements ITaskService {
             taskHistoryInfo = taskHistoryInfo + "Change " + "UserName: " + taskFromDB.getUser().getLastName() + " to " + user.getLastName() + " ";
             taskFromDB.setUser(user);
             save(taskFromDB);
+            historyService.createHistory(taskFromDB.getId(), taskFromDB.getDescription(), taskHistoryInfo);
         }
-        historyService.createHistory(taskFromDB.getId(), taskFromDB.getDescription(), taskHistoryInfo);
         return TaskConverter.Converter(taskFromDB);
     }
 
@@ -193,7 +191,6 @@ public class TaskService implements ITaskService {
         taskHistoryInfo = taskHistoryInfo + "UserID: " + task.getUser().getId() + " ";
         taskHistoryInfo = taskHistoryInfo + "Assign: " + task.getUser().getFirstName() + " " + task.getUser().getLastName() + " ";
         task.setStatus("TODO");
-        task.setPointStatus("TODO");
         if (taskDto.getPoint() >= 0 && taskDto.getPoint() <= 5) {
             save(task);
             historyService.createHistory(task.getId(), task.getDescription(), taskHistoryInfo);

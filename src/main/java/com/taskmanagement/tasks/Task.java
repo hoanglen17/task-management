@@ -16,7 +16,6 @@ public class Task {
     private String description;
     private Integer point;
     private String status;
-    private Integer pointStatus;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -26,15 +25,4 @@ public class Task {
     @JoinColumn(name = "parent_id")
     private Task parent;
 
-    public void setPointStatus(String status){
-        if(status.equals("TODO")){
-            this.pointStatus = 1;
-        }
-        if(status.equals("IN_PROGRESS")){
-            this.pointStatus = 2;
-        }
-        if(status.equals("DONE")){
-            this.pointStatus = 3;
-        }
-    }
 }

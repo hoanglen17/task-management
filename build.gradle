@@ -8,6 +8,7 @@ group = 'com.taskmanagement'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
+
 repositories {
 	mavenCentral()
 }
@@ -16,13 +17,20 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web:2.6.1'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.6.1'
 	implementation 'mysql:mysql-connector-java:8.0.27'
-    compileOnly 'org.projectlombok:lombok:1.18.20'
+	implementation 'junit:junit:4.13.1'
+	compileOnly 'org.projectlombok:lombok:1.18.20'
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
-
 	implementation 'org.modelmapper:modelmapper:2.4.5'
+
+	compileOnly group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
+	compileOnly group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
+
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.25.1'
 }
 
 test {
 	useJUnitPlatform()
 }
+
+
