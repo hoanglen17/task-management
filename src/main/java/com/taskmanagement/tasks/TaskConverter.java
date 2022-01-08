@@ -17,7 +17,7 @@ public class TaskConverter{
         dto.setDescription(task.getDescription());
         dto.setStartDate(task.getStartDate());
         dto.setEndDate(task.getEndDate());
-        dto.setStatus(task.getStatus());
+        dto.setProgress(task.getProgress());
         dto.setPoint(task.getPoint());
         dto.setUserId(task.getUser().getId());
         dto.setUserName(task.getUser().getFirstName()+" "+ task.getUser().getLastName());
@@ -29,7 +29,7 @@ public class TaskConverter{
         Task task = new Task();
         task.setId(taskDto.getId());
         task.setDescription(taskDto.getDescription());
-        task.setStatus(taskDto.getStatus());
+        task.setProgress(taskDto.getProgress());
         task.setStartDate(taskDto.getStartDate());
         task.setEndDate(taskDto.getEndDate());
         task.setPoint(taskDto.getPoint());

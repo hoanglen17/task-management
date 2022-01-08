@@ -1,17 +1,13 @@
 package com.taskmanagement.controller;
-import com.taskmanagement.history.IHistoryService;
-import com.taskmanagement.tasks.*;
-import com.taskmanagement.users.User;
-import com.taskmanagement.users.UserDto;
-import com.taskmanagement.users.UserService;
+import com.taskmanagement.tasks.ITaskService;
+import com.taskmanagement.tasks.SearchTaskDto;
+import com.taskmanagement.tasks.TaskDto;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.time.LocalDate;
+
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/tasks")

@@ -14,7 +14,7 @@ public class TaskDto {
     private Long parentId;
     private String parentName;
     private Integer point;
-    private String status;
+    private String progress;
     private LocalDate startDate;
     private LocalDate endDate;
 }

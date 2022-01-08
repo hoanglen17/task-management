@@ -22,7 +22,6 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	implementation 'org.modelmapper:modelmapper:2.4.5'
-
 	compileOnly group: 'io.springfox', name: 'springfox-swagger2', version: '2.7.0'
 	compileOnly group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.7.0'
 

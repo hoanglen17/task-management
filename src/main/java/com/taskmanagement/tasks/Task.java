@@ -1,6 +1,5 @@
 package com.taskmanagement.tasks;
 
-import com.taskmanagement.history.History;
 import com.taskmanagement.users.User;
 import lombok.Data;
 import javax.persistence.*;
@@ -15,7 +14,7 @@ public class Task {
     private Long id;
     private String description;
     private Integer point;
-    private String status;
+    private String progress;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -24,5 +23,4 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Task parent;
-
 }

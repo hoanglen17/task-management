@@ -4,7 +4,6 @@ import com.taskmanagement.history.HistoryService;
 import com.taskmanagement.users.User;
 import com.taskmanagement.users.UserService;
 import lombok.RequiredArgsConstructor;
-import org.junit.runner.RunWith;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -64,7 +63,7 @@ public class TaskService implements ITaskService {
             predicates.add(cb.between(task.get("point"), searchTaskDto.getPointMin(), searchTaskDto.getPointMax()));
         }
         if (searchTaskDto.getStatus() != null) {
-            predicates.add(cb.like(task.get("status"), "%" + searchTaskDto.getStatus() + "%"));
+            predicates.add(cb.like(task.get("progress"), "%" + searchTaskDto.getStatus() + "%"));
         }
         if (searchTaskDto.getUserId() != null) {
             predicates.add(cb.equal(task.get("user").get("id"), searchTaskDto.getUserId()));
@@ -90,6 +89,7 @@ public class TaskService implements ITaskService {
                 cq.orderBy(cb.desc(task.get("status")));
             }
         }
+
         cq.where(predicates.toArray(new Predicate[0]));
         List<TaskDto> taskList = new ArrayList<>();
         if (searchTaskDto != null) {
@@ -126,11 +126,12 @@ public class TaskService implements ITaskService {
     @Override
     public Object updateTask(Long id, TaskDto taskDto) {
         Task taskFromDB = findById(id).get();
-        String taskHistoryInfo = "Update Task: ";
         if (taskDto != null) {
-            if ((taskFromDB.getUser().getId()) != taskDto.getId() && taskDto.getId() != null) {
-                taskHistoryInfo = taskHistoryInfo + "Assign: " + taskFromDB.getUser().getFirstName() + " " + taskFromDB.getUser().getLastName() + " to " + taskDto.getUserName() + " ";
-                taskFromDB.setUser(userService.findUser(taskDto.getId()).get());
+            String taskHistoryInfo = "Update Task: ";
+            if ((taskFromDB.getUser().getId()) != taskDto.getUserId() && taskDto.getUserId() != null) {
+                User user = userService.findUser(taskDto.getUserId()).get();
+                taskFromDB.setUser(user);
+                taskHistoryInfo = taskHistoryInfo + "Assign: " + taskFromDB.getUser().getFirstName() + " " + taskFromDB.getUser().getLastName() + " to " + user.getFirstName() + " " + user.getLastName() + " ";
                 save(taskFromDB);
             }
             if (((taskFromDB.getDescription().equals(taskDto.getDescription())) == false) && taskDto.getDescription() != null) {
@@ -147,14 +148,14 @@ public class TaskService implements ITaskService {
                     return HttpStatus.BAD_REQUEST;
                 }
             }
-            if (((taskFromDB.getStatus().equals(taskDto.getStatus())) == false) && taskDto.getDescription() != null) {
-                taskHistoryInfo = taskHistoryInfo + "Status: " + taskFromDB.getStatus() + " to " + taskDto.getStatus() + " ";
-                if (taskDto.getStatus().equals("IN_PROGRESS")) {
+            if (((taskFromDB.getProgress().equals(taskDto.getProgress())) == false) && taskDto.getDescription() != null) {
+                taskHistoryInfo = taskHistoryInfo + "Status: " + taskFromDB.getProgress() + " to " + taskDto.getProgress() + " ";
+                if (taskDto.getProgress().equals("IN_PROGRESS")) {
                     taskFromDB.setStartDate(LocalDate.now());
-                    taskFromDB.setStatus("IN_PROGRESS");
-                } else if (taskDto.getStatus().equals("DONE")) {
+                    taskFromDB.setProgress("IN_PROGRESS");
+                } else if (taskDto.getProgress().equals("DONE")) {
                     taskFromDB.setEndDate(LocalDate.now());
-                    taskFromDB.setStatus("DONE");
+                    taskFromDB.setProgress("DONE");
                 }
                 save(taskFromDB);
             }
@@ -181,16 +182,27 @@ public class TaskService implements ITaskService {
 
     @Override
     public Object createTask(TaskDto taskDto) {
+
         User user = userService.findUser(taskDto.getUserId()).get();
-        Task taskParent = findById(taskDto.getParentId()).get();
+        Task taskParent = new Task();
+
+        if(taskDto.getParentId() != null){
+            taskParent  = findById(taskDto.getParentId()).get();
+        }else{
+            taskParent = null;
+        }
+
         Task task = TaskConverter.mapper(taskDto, user, taskParent);
+
         String taskHistoryInfo = new String();
         taskHistoryInfo = "Create: ";
         taskHistoryInfo = taskHistoryInfo + "Description: " + taskDto.getDescription() + " ";
         taskHistoryInfo = taskHistoryInfo + "Point: " + task.getPoint() + " ";
+        taskHistoryInfo = taskHistoryInfo + "ParentId" + task.getParent().getId();
         taskHistoryInfo = taskHistoryInfo + "UserID: " + task.getUser().getId() + " ";
         taskHistoryInfo = taskHistoryInfo + "Assign: " + task.getUser().getFirstName() + " " + task.getUser().getLastName() + " ";
-        task.setStatus("TODO");
+        task.setProgress("TODO");
+
         if (taskDto.getPoint() >= 0 && taskDto.getPoint() <= 5) {
             save(task);
             historyService.createHistory(task.getId(), task.getDescription(), taskHistoryInfo);
@@ -199,6 +211,9 @@ public class TaskService implements ITaskService {
             return HttpStatus.BAD_REQUEST;
         }
     }
+
+
+
 
     @Override
     public Task save(Task task) {
