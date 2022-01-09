@@ -8,11 +8,11 @@ import java.time.LocalDate;
 public class TaskDto {
     private Long id;
     private String taskType;
+    private Long parentId;
+    private String parentDescription;
     private String description;
     private Long userId;
     private String userName;
-    private Long parentId;
-    private String parentName;
     private Integer point;
     private String progress;
     private LocalDate startDate;

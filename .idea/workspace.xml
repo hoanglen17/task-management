@@ -4,19 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc9dcc4d-31fc-4f9a-a1a5-b52b7ef749e1" name="Changes" comment="Update Code 07-01-2022 build Swagger, edit Sort PROGRESS">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/taskmanagement/tasks/TaskServiceTest.java" afterDir="false" />
+    <list default="true" id="dc9dcc4d-31fc-4f9a-a1a5-b52b7ef749e1" name="Changes" comment="Update Code 08-01-2022 Testing, build unitTest">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/taskmanagement/users/UserServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/controller/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/controller/UsersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/controller/UsersController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/history/HistoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/history/HistoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/ITaskRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/ITaskRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/SearchTaskDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/SearchTaskDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/Task.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/taskmanagement/tasks/TaskServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/taskmanagement/tasks/TaskServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,9 +240,9 @@
       <item itemvalue="Application.TaskManagementApplication" />
       <item itemvalue="Application.TaskManagementApplication (1)" />
       <item itemvalue="Gradle.task-management" />
-      <item itemvalue="Spring Boot.TaskManagementApplication (1)" />
       <item itemvalue="Gradle.TaskTest" />
       <item itemvalue="Gradle.TaskServiceTest" />
+      <item itemvalue="Spring Boot.TaskManagementApplication (1)" />
     </list>
     <recent_temporary>
       <list>
@@ -287,7 +285,8 @@
       <workItem from="1641365020882" duration="288000" />
       <workItem from="1641553665116" duration="11453000" />
       <workItem from="1641568130319" duration="265000" />
-      <workItem from="1641645521755" duration="7422000" />
+      <workItem from="1641645521755" duration="7759000" />
+      <workItem from="1641737554028" duration="4401000" />
     </task>
     <task id="LOCAL-00001" summary="Update Code 28-12-2021">
       <created>1640670637910</created>
@@ -415,7 +414,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641568218800</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Update Code 08-01-2022 Testing, build unitTest">
+      <created>1641653303130</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1641653303130</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -459,7 +465,8 @@
     <MESSAGE value="Update Code 03-01-2022 Testing" />
     <MESSAGE value="Update Code 05-01-2022 Testing SearchTask" />
     <MESSAGE value="Update Code 07-01-2022 build Swagger, edit Sort PROGRESS" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Code 07-01-2022 build Swagger, edit Sort PROGRESS" />
+    <MESSAGE value="Update Code 08-01-2022 Testing, build unitTest" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Code 08-01-2022 Testing, build unitTest" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -15,12 +15,12 @@ public class Task {
     private String description;
     private Integer point;
     private String progress;
+    private Long parentId;
+    private String parentDescription;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     private LocalDate startDate;
     private LocalDate endDate;
-    @ManyToOne
-    @JoinColumn(name = "parent_id")
-    private Task parent;
+
 }

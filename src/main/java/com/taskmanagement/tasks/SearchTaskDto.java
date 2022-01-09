@@ -6,7 +6,7 @@ import lombok.Data;
 public class SearchTaskDto {
     private Long id;
     private String description;
-    private String status;
+    private String progress;
     private Integer point;
     private Integer pointMin;
     private Integer pointMax;
@@ -14,6 +14,7 @@ public class SearchTaskDto {
     private String userFirstName;
     private String userLastName;
     private String sorting;
+    private String sortingLastName;
     private String sortingPoint;
-    private String sortingStatus;
+    private String sortingProgress;
 }

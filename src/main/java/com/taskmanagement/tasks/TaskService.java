@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +59,8 @@ public class TaskService implements ITaskService {
         if (searchTaskDto.getPointMax() != null) {
             predicates.add(cb.between(task.get("point"), searchTaskDto.getPointMin(), searchTaskDto.getPointMax()));
         }
-        if (searchTaskDto.getStatus() != null) {
-            predicates.add(cb.like(task.get("progress"), "%" + searchTaskDto.getStatus() + "%"));
+        if (searchTaskDto.getProgress() != null) {
+            predicates.add(cb.like(task.get("progress"), "%" + searchTaskDto.getProgress() + "%"));
         }
         if (searchTaskDto.getUserId() != null) {
             predicates.add(cb.equal(task.get("user").get("id"), searchTaskDto.getUserId()));
@@ -74,7 +71,13 @@ public class TaskService implements ITaskService {
         if (searchTaskDto.getUserLastName() != null) {
             predicates.add(cb.like(task.get("user").get("lastName"), "%" + searchTaskDto.getUserLastName() + "%"));
         }
-
+        if (searchTaskDto.getSortingLastName() != null){
+            if (searchTaskDto.getSortingLastName().equals("ASC")) {
+                cq.orderBy(cb.asc(task.get("user").get("lastName")));
+            } else if (searchTaskDto.getSortingLastName().equals("DESC")) {
+                cq.orderBy(cb.desc(task.get("user").get("lastName")));
+            }
+        }
         if (searchTaskDto.getSortingPoint() != null) {
             if (searchTaskDto.getSortingPoint().equals("ASC")) {
                 cq.orderBy(cb.asc(task.get("point")));
@@ -82,11 +85,18 @@ public class TaskService implements ITaskService {
                 cq.orderBy(cb.desc(task.get("point")));
             }
         }
-        if (searchTaskDto.getSortingStatus() != null) {
-            if (searchTaskDto.getSortingStatus().equals("ASC")) {
-                cq.orderBy(cb.asc(task.get("status")));
-            } else if (searchTaskDto.getSortingStatus().equals("DESC")) {
-                cq.orderBy(cb.desc(task.get("status")));
+        if (searchTaskDto.getSortingProgress() != null) {
+            Expression<Object> caseExpression = cb.selectCase()
+                    .when(cb.equal(task.get("progress"), cb.literal("TODO")), 1)
+                    .when(cb.equal(task.get("progress"), cb.literal("IN_PROGRESS")), 2)
+                    .when(cb.equal(task.get("progress"), cb.literal("DONE")), 3)
+                    .otherwise(0);
+            if (searchTaskDto.getSortingProgress().equals("ASC")) {
+                Order temp2 = cb.asc(caseExpression);
+                cq = cq.orderBy(temp2);
+            } else if (searchTaskDto.getSortingProgress().equals("DESC")) {
+                Order temp2 = cb.desc(caseExpression);
+                cq = cq.orderBy(temp2);
             }
         }
 
@@ -100,7 +110,6 @@ public class TaskService implements ITaskService {
         }
         return taskList;
     }
-
 
     @Override
     public Optional<Task> findById(Long id) {
@@ -184,21 +193,19 @@ public class TaskService implements ITaskService {
     public Object createTask(TaskDto taskDto) {
 
         User user = userService.findUser(taskDto.getUserId()).get();
-        Task taskParent = new Task();
 
         if(taskDto.getParentId() != null){
-            taskParent  = findById(taskDto.getParentId()).get();
-        }else{
-            taskParent = null;
+        Task taskParent = findById(taskDto.getParentId()).get();
+        taskDto.setParentDescription(taskParent.getDescription());
         }
-
-        Task task = TaskConverter.mapper(taskDto, user, taskParent);
+        Task task = TaskConverter.mapper(taskDto, user);
 
         String taskHistoryInfo = new String();
-        taskHistoryInfo = "Create: ";
-        taskHistoryInfo = taskHistoryInfo + "Description: " + taskDto.getDescription() + " ";
+        taskHistoryInfo = "Create Task: ";
+        taskHistoryInfo = taskHistoryInfo + "Description: " + task.getDescription() + " ";
+        taskHistoryInfo = taskHistoryInfo + "ParentId: " + task.getParentId()+" ";
+        taskHistoryInfo = taskHistoryInfo + "ParentDescription: " + task.getParentDescription() +" ";
         taskHistoryInfo = taskHistoryInfo + "Point: " + task.getPoint() + " ";
-        taskHistoryInfo = taskHistoryInfo + "ParentId" + task.getParent().getId();
         taskHistoryInfo = taskHistoryInfo + "UserID: " + task.getUser().getId() + " ";
         taskHistoryInfo = taskHistoryInfo + "Assign: " + task.getUser().getFirstName() + " " + task.getUser().getLastName() + " ";
         task.setProgress("TODO");
@@ -211,9 +218,6 @@ public class TaskService implements ITaskService {
             return HttpStatus.BAD_REQUEST;
         }
     }
-
-
-
 
     @Override
     public Task save(Task task) {
