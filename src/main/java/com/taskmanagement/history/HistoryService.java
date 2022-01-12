@@ -10,23 +10,8 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class HistoryService implements IHistoryService{
+
     private final IHistoryRepo historyRepo;
-
-    @Override
-    public Iterable<History> findAll() {
-        return historyRepo.findAll();
-    }
-
-    @Override
-    public History findByTaskId(Long id){
-        History history = new History();
-        for (History historyFind : historyRepo.findAllOrderByTimeDesc()) {
-            if(history.getIdTask() == id){
-                history = historyFind;
-            }
-        }
-        return history;
-    }
 
     @Override
     public List<HistoryDto> findAllDto() {
@@ -45,19 +30,5 @@ public class HistoryService implements IHistoryService{
         history.setInfo(info);
         history.setDescriptionTask(descriptionTask);
         return historyRepo.save(history);
-    }
-    @Override
-    public Optional<History> findById(Long id) {
-        return historyRepo.findById(id);
-    }
-
-    @Override
-    public History save(History history) {
-        return historyRepo.save(history);
-    }
-
-    @Override
-    public void remove(Long id) {
-        historyRepo.deleteById(id);
     }
 }

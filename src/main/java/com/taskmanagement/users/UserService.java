@@ -28,6 +28,10 @@ public class UserService implements  IUserService{
     }
 
     public Optional<User> findUser(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("ID NULL!");
+        }
         return userRepo.findById(userId);
     }
+
 }

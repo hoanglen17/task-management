@@ -7,4 +7,5 @@ import lombok.Data;
 public class UserDto {
     private Long Id;
     private String name;
+
 }

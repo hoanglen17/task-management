@@ -17,9 +17,4 @@ public class HistoryController {
     public ResponseEntity<Object> getAll() {
         return new ResponseEntity<>(historyService.findAllDto(), HttpStatus.OK);
     }
-
-    @PostMapping("/create")
-    public ResponseEntity<History> createHistory(@RequestBody History history) {
-        return new ResponseEntity<>(historyService.save(history), HttpStatus.OK);
-    }
 }
