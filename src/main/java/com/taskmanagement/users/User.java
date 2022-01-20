@@ -16,8 +16,8 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
-    @OneToMany(mappedBy = "user")
-    private List<Task> task;
+//    @OneToMany(mappedBy = "user")
+//    private List<Task> task;
 
     public User(Long id, String firstName, String lastName) {
         this.id = id;

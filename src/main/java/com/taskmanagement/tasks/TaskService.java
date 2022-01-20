@@ -71,7 +71,7 @@ public class TaskService implements ITaskService {
         if (searchTaskDto.getUserLastName() != null) {
             predicates.add(cb.like(task.get("user").get("lastName"), "%" + searchTaskDto.getUserLastName() + "%"));
         }
-        if (searchTaskDto.getSortingLastName() != null){
+        if (searchTaskDto.getSortingLastName() != null) {
             if (searchTaskDto.getSortingLastName().equals("ASC")) {
                 cq.orderBy(cb.asc(task.get("user").get("lastName")));
             } else if (searchTaskDto.getSortingLastName().equals("DESC")) {
@@ -121,68 +121,80 @@ public class TaskService implements ITaskService {
 
     @Override
     public List<TaskDto> findByIdDto(Long id) {
+        Task task = taskRepo.findById(id).get();
         List<TaskDto> taskList = new ArrayList<>();
-        for (Task taskFind : taskRepo.findAll()) {
-            TaskDto taskDto = TaskConverter.Converter(taskFind);
-            if (id == taskDto.getId()) {
-                taskList.add(taskDto);
-                continue;
-            }
-            if (id == taskDto.getParentId()) {
-                taskList.add(taskDto);
+
+        if(task.getParentId() == task.getId()){
+            for (Task taskFind : taskRepo.findAll()) {
+                TaskDto taskDto = TaskConverter.Converter(taskFind);
+                if (task.getId() == taskDto.getParentId()) {
+                    taskList.add(taskDto);
+                }
             }
         }
+
+        if(task.getParentId() != task.getId()){
+            for (Task taskFind : taskRepo.findAll()) {
+                TaskDto taskDtoParent = TaskConverter.Converter(taskFind);
+                if (task.getParentId() == taskDtoParent.getId()) {
+                    taskList.add(taskDtoParent);
+                }
+            }
+            TaskDto taskDto = TaskConverter.Converter(taskRepo.findById(id).get());
+            taskList.add(taskDto);
+        }
+
         return taskList;
     }
 
     @Override
     public Object updateTask(Long id, TaskDto taskDto) {
         Task taskFromDB = findById(id).get();
-            String taskHistoryInfo = "Update Task: ";
-            if ((taskFromDB.getUser().getId()) != taskDto.getUserId() && taskDto.getUserId() != null) {
-                User user = userService.findUser(taskDto.getUserId()).get();
-                taskHistoryInfo = taskHistoryInfo + "Assign: " + taskFromDB.getUser().getFirstName() + " " + taskFromDB.getUser().getLastName() + " to " + user.getFirstName() + " " + user.getLastName() + "; ";
-                taskFromDB.setUser(user);
+        String taskHistoryInfo = "Update Task: ";
+        if ((taskFromDB.getUser().getId()) != taskDto.getUserId() && taskDto.getUserId() != null) {
+            User user = userService.findUser(taskDto.getUserId()).get();
+            taskHistoryInfo = taskHistoryInfo + "Assign: " + taskFromDB.getUser().getFirstName() + " " + taskFromDB.getUser().getLastName() + " to " + user.getFirstName() + " " + user.getLastName() + "; ";
+            taskFromDB.setUser(user);
+        }
+        if (((taskFromDB.getDescription().equals(taskDto.getDescription())) == false) && taskDto.getDescription() != null) {
+            taskHistoryInfo = taskHistoryInfo + "Description: " + taskFromDB.getDescription() + " to " + taskDto.getDescription() + "; ";
+            taskFromDB.setDescription(taskDto.getDescription());
+            if (taskFromDB.getParentId() == taskFromDB.getId()) {
+                taskFromDB.setParentDescription(taskFromDB.getDescription());
             }
-            if (((taskFromDB.getDescription().equals(taskDto.getDescription())) == false) && taskDto.getDescription() != null) {
-                taskHistoryInfo = taskHistoryInfo + "Description: " + taskFromDB.getDescription() + " to " + taskDto.getDescription() + "; ";
-                taskFromDB.setDescription(taskDto.getDescription());
-                if(taskFromDB.getParentId() == taskFromDB.getId()){
-                    taskFromDB.setParentDescription(taskFromDB.getDescription());
-                }
+        }
+        if (taskFromDB.getPoint() != taskDto.getPoint() && taskDto.getPoint() != null) {
+            if (taskDto.getPoint() >= 0 && taskDto.getPoint() <= 5) {
+                taskHistoryInfo = taskHistoryInfo + "Point: " + taskFromDB.getPoint() + " to " + taskDto.getPoint() + "; ";
+                taskFromDB.setPoint(taskDto.getPoint());
+            } else {
+                return HttpStatus.BAD_REQUEST;
             }
-            if (taskFromDB.getPoint() != taskDto.getPoint() && taskDto.getPoint() != null) {
-                if (taskDto.getPoint() >= 0 && taskDto.getPoint() <= 5) {
-                    taskHistoryInfo = taskHistoryInfo + "Point: " + taskFromDB.getPoint() + " to " + taskDto.getPoint() + "; ";
-                    taskFromDB.setPoint(taskDto.getPoint());
-                } else {
-                    return HttpStatus.BAD_REQUEST;
-                }
+        }
+        if (((taskFromDB.getProgress().equals(taskDto.getProgress())) == false) && taskDto.getDescription() != null) {
+            taskHistoryInfo = taskHistoryInfo + "Status: " + taskFromDB.getProgress() + " to " + taskDto.getProgress() + "; ";
+            if (taskDto.getProgress().equals("IN_PROGRESS")) {
+                taskFromDB.setStartDate(LocalDate.now());
+                taskFromDB.setProgress("IN_PROGRESS");
+            } else if (taskDto.getProgress().equals("DONE")) {
+                taskFromDB.setEndDate(LocalDate.now());
+                taskFromDB.setProgress("DONE");
             }
-            if (((taskFromDB.getProgress().equals(taskDto.getProgress())) == false) && taskDto.getDescription() != null) {
-                taskHistoryInfo = taskHistoryInfo + "Status: " + taskFromDB.getProgress() + " to " + taskDto.getProgress() + "; ";
-                if (taskDto.getProgress().equals("IN_PROGRESS")) {
-                    taskFromDB.setStartDate(LocalDate.now());
-                    taskFromDB.setProgress("IN_PROGRESS");
-                } else if (taskDto.getProgress().equals("DONE")) {
-                    taskFromDB.setEndDate(LocalDate.now());
-                    taskFromDB.setProgress("DONE");
-                }
-            }
-            if(taskHistoryInfo != "Update Task: "){
-                save(taskFromDB);
-                historyService.createHistory(taskFromDB.getId(), taskFromDB.getDescription(), taskHistoryInfo);
-            }
+        }
+        if (taskHistoryInfo != "Update Task: ") {
+            save(taskFromDB);
+            historyService.createHistory(taskFromDB.getId(), taskFromDB.getDescription(), taskHistoryInfo);
+        }
         return TaskConverter.Converter(taskFromDB);
     }
 
     @Override
-    public Object reAssignTask(Long id, Long userId) {
-        User user = userService.findUser(userId).get();
+    public Object reAssignTask(Long id, Long newUserId) {
+        User user = userService.findUser(newUserId).get();
         Task taskFromDB = findById(id).get();
         String taskHistoryInfo = "ReAssign Task: ";
-        if (taskFromDB.getUser().getId() != userId) {
-            taskHistoryInfo = taskHistoryInfo + "UserId: " + taskFromDB.getUser().getId() + " to " + userId + "; ";
+        if (taskFromDB.getUser().getId() != newUserId) {
+            taskHistoryInfo = taskHistoryInfo + "UserId: " + taskFromDB.getUser().getId() + " to " + newUserId + "; ";
             taskHistoryInfo = taskHistoryInfo + "Change " + "UserName: " + taskFromDB.getUser().getLastName() + " to " + user.getLastName() + "; ";
             taskFromDB.setUser(user);
             save(taskFromDB);
@@ -196,7 +208,7 @@ public class TaskService implements ITaskService {
 
         User user = userService.findUser(taskDto.getUserId()).get();
 
-        if(taskDto.getParentId() != null){
+        if (taskDto.getParentId() != null) {
             Task taskParent = findById(taskDto.getParentId()).get();
             taskDto.setParentDescription(taskParent.getDescription());
         }
@@ -207,21 +219,19 @@ public class TaskService implements ITaskService {
         String taskHistoryInfo = "Create Task: ";
         taskHistoryInfo = taskHistoryInfo + "Description: " + task.getDescription() + "; ";
 
-        if(task.getParentId() != null){
-            taskHistoryInfo = taskHistoryInfo + "ParentId: " + task.getParentId()+"; ";
-            taskHistoryInfo = taskHistoryInfo + "ParentDescription: " + task.getParentDescription() +"; ";
-        }else {
+        if (task.getParentId() != null) {
+            taskHistoryInfo = taskHistoryInfo + "ParentId: " + task.getParentId() + "; ";
+            taskHistoryInfo = taskHistoryInfo + "ParentDescription: " + task.getParentDescription() + "; ";
+        } else {
             task.setParentId(task.getId());
             task.setParentDescription(task.getDescription());
-            taskHistoryInfo = taskHistoryInfo + "ParentId: " + task.getParentId()+"; ";
-            taskHistoryInfo = taskHistoryInfo + "ParentDescription: " + task.getParentDescription() +"; ";
+            taskHistoryInfo = taskHistoryInfo + "ParentId: " + task.getParentId() + "; ";
+            taskHistoryInfo = taskHistoryInfo + "ParentDescription: " + task.getParentDescription() + "; ";
         }
         taskHistoryInfo = taskHistoryInfo + "Point: " + task.getPoint() + "; ";
         taskHistoryInfo = taskHistoryInfo + "UserID: " + task.getUser().getId() + " ";
         taskHistoryInfo = taskHistoryInfo + "Assign: " + task.getUser().getFirstName() + " " + task.getUser().getLastName() + "; ";
         task.setProgress("TODO");
-
-
         if (taskDto.getPoint() >= 0 && taskDto.getPoint() <= 5) {
             save(task);
             historyService.createHistory(task.getId(), task.getDescription(), taskHistoryInfo);

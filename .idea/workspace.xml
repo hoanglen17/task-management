@@ -4,19 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc9dcc4d-31fc-4f9a-a1a5-b52b7ef749e1" name="Changes" comment="Update Code 09-01-2022 build UnitTest">
-      <change afterPath="$PROJECT_DIR$/src/test/java/history/HistoryServiceTest.java" afterDir="false" />
+    <list default="true" id="dc9dcc4d-31fc-4f9a-a1a5-b52b7ef749e1" name="Changes" comment="Update Code 20-01-2022 build UnitTest class TaskService">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/controller/HistoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/controller/HistoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/history/HistoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/history/HistoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/history/IGeneralService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/history/IGeneralService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/ITaskRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/ITaskRepo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/users/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/users/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/users/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/users/UserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/users/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/users/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/taskmanagement/tasks/TaskServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/taskmanagement/tasks/TaskServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/taskmanagement/users/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/taskmanagement/users/UserServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/history/HistoryServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/history/HistoryServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +138,49 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.TaskManagementApplication (1)">
+  <component name="RunManager" selected="Gradle.TaskServiceTest">
+    <configuration name="HistoryServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;history.HistoryServiceTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="HistoryServiceTest.test_findAllHistory_repoFindAll_haveHistory" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;history.HistoryServiceTest.test_findAllHistory_repoFindAll_haveHistory&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="TaskServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -166,33 +202,12 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="TaskServiceTest.test_findAll_repoFindAll_haveTask" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TaskServiceTest.test_reAssignTask_inputIdTaskIs1_inputIdNewUserIs2_repoFindById" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.taskmanagement.tasks.TaskServiceTest.test_findAll_repoFindAll_haveTask&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="TaskServiceTest.test_findAll_repoFindAll_haveUser" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.taskmanagement.tasks.TaskServiceTest.test_findAll_repoFindAll_haveUser&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.taskmanagement.tasks.TaskServiceTest.test_reAssignTask_inputIdTaskIs1_inputIdNewUserIs2_repoFindById&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -213,28 +228,7 @@
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.taskmanagement.users.UserServiceTest&quot; --scan" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="UserServiceTest.test_findUser_inputIdIs1_repoFindById" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.taskmanagement.users.UserServiceTest.test_findUser_inputIdIs1_repoFindById&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.taskmanagement.users.UserServiceTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -258,20 +252,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Gradle.UserServiceTest" />
-      <item itemvalue="Gradle.UserServiceTest.test_findUser_inputIdIs1_repoFindById" />
-      <item itemvalue="Spring Boot.TaskManagementApplication (1)" />
-      <item itemvalue="Gradle.TaskServiceTest.test_findAll_repoFindAll_haveUser" />
       <item itemvalue="Gradle.TaskServiceTest" />
-      <item itemvalue="Gradle.TaskServiceTest.test_findAll_repoFindAll_haveTask" />
+      <item itemvalue="Gradle.UserServiceTest" />
+      <item itemvalue="Gradle.HistoryServiceTest" />
+      <item itemvalue="Gradle.HistoryServiceTest.test_findAllHistory_repoFindAll_haveHistory" />
+      <item itemvalue="Gradle.TaskServiceTest.test_reAssignTask_inputIdTaskIs1_inputIdNewUserIs2_repoFindById" />
+      <item itemvalue="Spring Boot.TaskManagementApplication (1)" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.TaskServiceTest" />
+        <item itemvalue="Gradle.TaskServiceTest.test_reAssignTask_inputIdTaskIs1_inputIdNewUserIs2_repoFindById" />
+        <item itemvalue="Gradle.HistoryServiceTest" />
+        <item itemvalue="Gradle.HistoryServiceTest.test_findAllHistory_repoFindAll_haveHistory" />
         <item itemvalue="Gradle.UserServiceTest" />
-        <item itemvalue="Gradle.TaskServiceTest.test_findAll_repoFindAll_haveTask" />
-        <item itemvalue="Gradle.TaskServiceTest.test_findAll_repoFindAll_haveUser" />
-        <item itemvalue="Gradle.UserServiceTest.test_findUser_inputIdIs1_repoFindById" />
       </list>
     </recent_temporary>
   </component>
@@ -311,7 +305,10 @@
       <workItem from="1641796837201" duration="3683000" />
       <workItem from="1641800580596" duration="278000" />
       <workItem from="1641817744757" duration="4270000" />
-      <workItem from="1641990075902" duration="7601000" />
+      <workItem from="1641990075902" duration="8495000" />
+      <workItem from="1641998736764" duration="639000" />
+      <workItem from="1642552964251" duration="12459000" />
+      <workItem from="1642659869856" duration="4413000" />
     </task>
     <task id="LOCAL-00001" summary="Update Code 28-12-2021">
       <created>1640670637910</created>
@@ -453,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641742216130</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Update Code 12-01-2022 testing, build UnitTest class TaskService">
+      <created>1641997796176</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1641997796176</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,16 +503,8 @@
     <MESSAGE value="Update Code 07-01-2022 build Swagger, edit Sort PROGRESS" />
     <MESSAGE value="Update Code 08-01-2022 Testing, build unitTest" />
     <MESSAGE value="Update Code 09-01-2022 build UnitTest" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Code 09-01-2022 build UnitTest" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties class="java.lang.NullPointerException" package="java.lang" />
-          <option name="timeStamp" value="1" />
-        </breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Update Code 12-01-2022 testing, build UnitTest class TaskService" />
+    <MESSAGE value="Update Code 20-01-2022 build UnitTest class TaskService" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Code 20-01-2022 build UnitTest class TaskService" />
   </component>
 </project>
