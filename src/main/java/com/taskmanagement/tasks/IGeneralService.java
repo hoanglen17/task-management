@@ -8,7 +8,7 @@ public interface IGeneralService<Tasks> {
     Optional<Tasks> findById(Long id);
     List<TaskDto> findByIdDto(Long id);
     List<TaskDto> searchTask(SearchTaskDto taskDto);
-    Object updateTask(Long id,TaskDto task);
+    Object updateTask(Long id, TaskDto task);
     Object reAssignTask(Long id, Long userId);
     Object createTask(TaskDto task);
     Task save(Tasks task);

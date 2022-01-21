@@ -108,6 +108,7 @@ public class TaskService implements ITaskService {
                 taskList.add(taskDto);
             }
         }
+
         return taskList;
     }
 
@@ -124,7 +125,7 @@ public class TaskService implements ITaskService {
         Task task = taskRepo.findById(id).get();
         List<TaskDto> taskList = new ArrayList<>();
 
-        if(task.getParentId() == task.getId()){
+        if (task.getParentId() == task.getId()) {
             for (Task taskFind : taskRepo.findAll()) {
                 TaskDto taskDto = TaskConverter.Converter(taskFind);
                 if (task.getId() == taskDto.getParentId()) {
@@ -133,7 +134,7 @@ public class TaskService implements ITaskService {
             }
         }
 
-        if(task.getParentId() != task.getId()){
+        if (task.getParentId() != task.getId()) {
             for (Task taskFind : taskRepo.findAll()) {
                 TaskDto taskDtoParent = TaskConverter.Converter(taskFind);
                 if (task.getParentId() == taskDtoParent.getId()) {
@@ -189,7 +190,7 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public Object reAssignTask(Long id, Long newUserId) {
+    public TaskDto reAssignTask(Long id, Long newUserId) {
         User user = userService.findUser(newUserId).get();
         Task taskFromDB = findById(id).get();
         String taskHistoryInfo = "ReAssign Task: ";
@@ -228,6 +229,7 @@ public class TaskService implements ITaskService {
             taskHistoryInfo = taskHistoryInfo + "ParentId: " + task.getParentId() + "; ";
             taskHistoryInfo = taskHistoryInfo + "ParentDescription: " + task.getParentDescription() + "; ";
         }
+
         taskHistoryInfo = taskHistoryInfo + "Point: " + task.getPoint() + "; ";
         taskHistoryInfo = taskHistoryInfo + "UserID: " + task.getUser().getId() + " ";
         taskHistoryInfo = taskHistoryInfo + "Assign: " + task.getUser().getFirstName() + " " + task.getUser().getLastName() + "; ";
