@@ -17,15 +17,13 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-
 public class TaskService implements ITaskService {
 
     private final ITaskRepo taskRepo;
     private final HistoryService historyService;
     private final UserService userService;
-
     @PersistenceContext
-    EntityManager em;
+    private EntityManager entityManager;
 
     @Override
     public List<TaskDto> findAll() {
@@ -36,74 +34,93 @@ public class TaskService implements ITaskService {
         return listTaskDto;
     }
 
+    protected void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
+
+    public List<TaskDto> forTest(SearchTaskDto searchTaskDto) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Task> criteriaQuery = criteriaBuilder.createQuery(Task.class);
+
+        Root<Task> task = criteriaQuery.from(Task.class);
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (null != searchTaskDto.getId()) {
+            predicates.add(criteriaBuilder.equal(task.get("id"), searchTaskDto.getId()));
+        }
+
+        // entityManager.createQuery(criteriaQuery).getResultList();
+        return null;
+    }
+
     @Override
     public List<TaskDto> searchTask(SearchTaskDto searchTaskDto) {
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        CriteriaQuery<Task> cq = cb.createQuery(Task.class);
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Task> criteriaQuery = criteriaBuilder.createQuery(Task.class);
 
-        Root<Task> task = cq.from(Task.class);
+        Root<Task> rootTask = criteriaQuery.from(Task.class);
         List<Predicate> predicates = new ArrayList<>();
 
         if (searchTaskDto.getId() != null) {
-            predicates.add(cb.equal(task.get("id"), searchTaskDto.getId()));
+            predicates.add(criteriaBuilder.equal(rootTask.get("id"), searchTaskDto.getId()));
         }
         if (searchTaskDto.getDescription() != null) {
-            predicates.add(cb.like(task.get("description"), "%" + searchTaskDto.getDescription() + "%"));
+            predicates.add(criteriaBuilder.like(rootTask.get("description"), "%" + searchTaskDto.getDescription() + "%"));
         }
         if (searchTaskDto.getPoint() != null) {
-            predicates.add(cb.equal(task.get("point"), searchTaskDto.getPoint()));
+            predicates.add(criteriaBuilder.equal(rootTask.get("point"), searchTaskDto.getPoint()));
         }
         if (searchTaskDto.getPointMin() != null) {
-            predicates.add(cb.between(task.get("point"), searchTaskDto.getPointMin(), searchTaskDto.getPointMax()));
+            predicates.add(criteriaBuilder.between(rootTask.get("point"), searchTaskDto.getPointMin(), searchTaskDto.getPointMax()));
         }
         if (searchTaskDto.getPointMax() != null) {
-            predicates.add(cb.between(task.get("point"), searchTaskDto.getPointMin(), searchTaskDto.getPointMax()));
+            predicates.add(criteriaBuilder.between(rootTask.get("point"), searchTaskDto.getPointMin(), searchTaskDto.getPointMax()));
         }
         if (searchTaskDto.getProgress() != null) {
-            predicates.add(cb.like(task.get("progress"), "%" + searchTaskDto.getProgress() + "%"));
+            predicates.add(criteriaBuilder.like(rootTask.get("progress"), "%" + searchTaskDto.getProgress() + "%"));
         }
         if (searchTaskDto.getUserId() != null) {
-            predicates.add(cb.equal(task.get("user").get("id"), searchTaskDto.getUserId()));
+            predicates.add(criteriaBuilder.equal(rootTask.get("user").get("id"), searchTaskDto.getUserId()));
         }
         if (searchTaskDto.getUserFirstName() != null) {
-            predicates.add(cb.like(task.get("user").get("firstName"), "%" + searchTaskDto.getUserFirstName() + "%"));
+            predicates.add(criteriaBuilder.like(rootTask.get("user").get("firstName"), "%" + searchTaskDto.getUserFirstName() + "%"));
         }
         if (searchTaskDto.getUserLastName() != null) {
-            predicates.add(cb.like(task.get("user").get("lastName"), "%" + searchTaskDto.getUserLastName() + "%"));
+            predicates.add(criteriaBuilder.like(rootTask.get("user").get("lastName"), "%" + searchTaskDto.getUserLastName() + "%"));
         }
         if (searchTaskDto.getSortingLastName() != null) {
             if (searchTaskDto.getSortingLastName().equals("ASC")) {
-                cq.orderBy(cb.asc(task.get("user").get("lastName")));
+                criteriaQuery.orderBy(criteriaBuilder.asc(rootTask.get("user").get("lastName")));
             } else if (searchTaskDto.getSortingLastName().equals("DESC")) {
-                cq.orderBy(cb.desc(task.get("user").get("lastName")));
+                criteriaQuery.orderBy(criteriaBuilder.desc(rootTask.get("user").get("lastName")));
             }
         }
         if (searchTaskDto.getSortingPoint() != null) {
             if (searchTaskDto.getSortingPoint().equals("ASC")) {
-                cq.orderBy(cb.asc(task.get("point")));
+                criteriaQuery.orderBy(criteriaBuilder.asc(rootTask.get("point")));
             } else if (searchTaskDto.getSortingPoint().equals("DESC")) {
-                cq.orderBy(cb.desc(task.get("point")));
+                criteriaQuery.orderBy(criteriaBuilder.desc(rootTask.get("point")));
             }
         }
         if (searchTaskDto.getSortingProgress() != null) {
-            Expression<Object> caseExpression = cb.selectCase()
-                    .when(cb.equal(task.get("progress"), cb.literal("TODO")), 1)
-                    .when(cb.equal(task.get("progress"), cb.literal("IN_PROGRESS")), 2)
-                    .when(cb.equal(task.get("progress"), cb.literal("DONE")), 3)
+            Expression<Object> caseExpression = criteriaBuilder.selectCase()
+                    .when(criteriaBuilder.equal(rootTask.get("progress"), criteriaBuilder.literal("TODO")), 1)
+                    .when(criteriaBuilder.equal(rootTask.get("progress"), criteriaBuilder.literal("IN_PROGRESS")), 2)
+                    .when(criteriaBuilder.equal(rootTask.get("progress"), criteriaBuilder.literal("DONE")), 3)
                     .otherwise(0);
             if (searchTaskDto.getSortingProgress().equals("ASC")) {
-                Order temp2 = cb.asc(caseExpression);
-                cq = cq.orderBy(temp2);
+                Order temp2 = criteriaBuilder.asc(caseExpression);
+                criteriaQuery = criteriaQuery.orderBy(temp2);
             } else if (searchTaskDto.getSortingProgress().equals("DESC")) {
-                Order temp2 = cb.desc(caseExpression);
-                cq = cq.orderBy(temp2);
+                Order temp2 = criteriaBuilder.desc(caseExpression);
+                criteriaQuery = criteriaQuery.orderBy(temp2);
             }
         }
 
-        cq.where(predicates.toArray(new Predicate[0]));
+        criteriaQuery.where(predicates.toArray(new Predicate[0]));
         List<TaskDto> taskList = new ArrayList<>();
         if (searchTaskDto != null) {
-            for (Task taskFind : em.createQuery(cq).getResultList()) {
+            for (Task taskFind : entityManager.createQuery(criteriaQuery).getResultList()) {
                 TaskDto taskDto = TaskConverter.Converter(taskFind);
                 taskList.add(taskDto);
             }
