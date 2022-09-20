@@ -14,12 +14,10 @@ public class UserServiceTest {
     @Mock
     IUserRepo userRepo;
     UserService userService;
-
     @BeforeEach
     void init() {
         userService = new UserService(userRepo);
     }
-
     @Test
     public void test_findUser_inputIdIs1_repoFindById() {
         // GIVEN
@@ -27,10 +25,8 @@ public class UserServiceTest {
         user.setId(1L);
         user.setFirstName("Len");
         user.setLastName("Tran");
-
         // WHEN
         Assert.assertThrows(IllegalArgumentException.class, () -> userService.findUser(null));
-
         // THEN
     }
 
@@ -41,12 +37,9 @@ public class UserServiceTest {
         user.setId(1L);
         user.setFirstName("Len");
         user.setLastName("Tran");
-
         Mockito.when(userRepo.findAll()).thenReturn(List.of(user));
-
         // WHEN
         List<UserDto> results = userService.findAll();
-
         // THEN
         Assert.assertEquals(1, results.size());
     }
@@ -55,10 +48,8 @@ public class UserServiceTest {
     public void test_findAll_repoFindAll_listNull() {
         // GIVEN
         Mockito.when(userRepo.findAll()).thenReturn(List.of());
-
         // WHEN
         List<UserDto> results = userService.findAll();
-
         // THEN
         Assert.assertEquals(0, results.size());
     }

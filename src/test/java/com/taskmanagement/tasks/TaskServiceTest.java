@@ -1,31 +1,21 @@
 package com.taskmanagement.tasks;
-
 import com.taskmanagement.history.HistoryService;
 import com.taskmanagement.users.User;
 import com.taskmanagement.users.UserService;
-import org.junit.AfterClass;
 import org.junit.Assert;
-import org.junit.Before;
+import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.internal.verification.Times;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.context.junit4.SpringRunner;
-
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,7 +40,7 @@ public class TaskServiceTest {
     }
 
     @Test
-    public void test() {
+    public void testSearchTask() {
         SearchTaskDto searchTaskDto = new SearchTaskDto();
         searchTaskDto.setId(1l);
 
@@ -68,7 +58,6 @@ public class TaskServiceTest {
         taskService.forTest(searchTaskDto);
 
         Mockito.verify(mockCriteriaBuilder).equal(mockPathId, searchTaskDto.getId());
-
     }
 
     @Test
@@ -284,55 +273,5 @@ public class TaskServiceTest {
         Mockito.verify(taskRepo, new Times(2)).save(Mockito.any());
         Mockito.verify(historyService).createHistory(Mockito.any(), Mockito.any(), Mockito.any());
     }
-
-    @Test
-    public void test_createTask_inputTaskDto_errorPoint() {
-        // GIVEN
-        User user = new User();
-        user.setId(1L);
-        user.setFirstName("Tran Hoang");
-        user.setLastName("Len");
-
-        TaskDto taskDto = new TaskDto();
-        taskDto.setUserId(1L);
-        taskDto.setDescription("description1");
-        taskDto.setParentId(1L);
-        taskDto.setPoint(7);
-
-        Task task = new Task();
-
-        Mockito.when(userService.findUser(1L)).thenReturn(Optional.of(user));
-        Mockito.when(taskService.findById(1L)).thenReturn(Optional.of(task));
-
-        // WHEN
-        Object result = taskService.createTask(taskDto);
-
-        // THEN
-        Assert.assertEquals(HttpStatus.BAD_REQUEST, result);
-    }
-//    @Test
-//    public void test_searchTask_inputTaskDto() {
-//        SearchTaskDto searchTaskDto = new SearchTaskDto();
-//        searchTaskDto.setId(1l);
-//
-//        CriteriaBuilder mockCriteriaBuilder = Mockito.mock(CriteriaBuilder.class);
-//
-//        Mockito.when(entityManager.getCriteriaBuilder()).thenReturn(mockCriteriaBuilder);
-//        CriteriaQuery<Task> mockCriteriaQuery = Mockito.mock(CriteriaQuery.class);
-//        Mockito.when(mockCriteriaBuilder.createQuery(Task.class)).thenReturn(mockCriteriaQuery);
-//        Root<Task> mockRoot = Mockito.mock(Root.class);
-//        Mockito.when(mockCriteriaQuery.from(Task.class)).thenReturn(mockRoot);
-//
-//        Path<Object> mockPathId = Mockito.mock(Path.class);
-//        Mockito.when(mockRoot.get("id")).thenReturn(mockPathId);
-//
-//        List<Task> taskList = new ArrayList<>();
-//        Mockito.when(mockCriteriaQuery.from(Task.class)).thenReturn(Task);
-//
-//        taskService.searchTask(searchTaskDto);
-//
-//        Mockito.verify(mockCriteriaBuilder).equal(mockPathId, searchTaskDto.getId());
-//
-//    }
 }
 

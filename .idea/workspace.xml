@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dc9dcc4d-31fc-4f9a-a1a5-b52b7ef749e1" name="Changes" comment="Update Code 20-01-2022 build test_SearchTask">
+    <list default="true" id="dc9dcc4d-31fc-4f9a-a1a5-b52b7ef749e1" name="Changes" comment="Update Code 14-02-2022 build test_SearchTask">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/taskmanagement/tasks/TaskService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/com/taskmanagement/tasks/TaskServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/taskmanagement/tasks/TaskServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/taskmanagement/users/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/taskmanagement/users/UserServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +136,41 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.TaskServiceTest.test_searchTask_inputTaskDto">
+  <component name="RunManager" selected="Spring Boot.TaskManagementApplication (1)">
+    <configuration name="TaskManagementApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.taskmanagement.TaskManagementApplication" />
+      <module name="com.taskmanagement.task-management.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.taskmanagement.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HistoryServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--tests &quot;history.HistoryServiceTest&quot;" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <configuration name="TaskServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -157,12 +192,12 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="TaskServiceTest.test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="TaskServiceTest.test_createTask_inputTaskDto_errorPoint" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.taskmanagement.tasks.TaskServiceTest.test&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.taskmanagement.tasks.TaskServiceTest.test_createTask_inputTaskDto_errorPoint&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -178,54 +213,12 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="TaskServiceTest.test_findAllTask_repoFindAll_listNullTask" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="UserServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.taskmanagement.tasks.TaskServiceTest.test_findAllTask_repoFindAll_listNullTask&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="TaskServiceTest.test_searchTask_inputIdTaskDto" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.taskmanagement.tasks.TaskServiceTest.test_searchTask_inputIdTaskDto&quot;" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="TaskServiceTest.test_searchTask_inputTaskDto" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--tests &quot;com.taskmanagement.tasks.TaskServiceTest.test_searchTask_inputTaskDto&quot;" />
+        <option name="scriptParameters" value="--tests &quot;com.taskmanagement.users.UserServiceTest&quot;" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -249,20 +242,20 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.TaskManagementApplication" />
       <item itemvalue="Gradle.TaskServiceTest" />
-      <item itemvalue="Gradle.TaskServiceTest.test_searchTask_inputTaskDto" />
+      <item itemvalue="Gradle.UserServiceTest" />
+      <item itemvalue="Gradle.HistoryServiceTest" />
+      <item itemvalue="Gradle.TaskServiceTest.test_createTask_inputTaskDto_errorPoint" />
       <item itemvalue="Spring Boot.TaskManagementApplication (1)" />
-      <item itemvalue="Gradle.TaskServiceTest.test" />
-      <item itemvalue="Gradle.TaskServiceTest.test_searchTask_inputIdTaskDto" />
-      <item itemvalue="Gradle.TaskServiceTest.test_findAllTask_repoFindAll_listNullTask" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.TaskServiceTest.test_searchTask_inputTaskDto" />
-        <item itemvalue="Gradle.TaskServiceTest.test" />
-        <item itemvalue="Gradle.TaskServiceTest.test_findAllTask_repoFindAll_listNullTask" />
-        <item itemvalue="Gradle.TaskServiceTest.test_searchTask_inputIdTaskDto" />
+        <item itemvalue="Gradle.UserServiceTest" />
         <item itemvalue="Gradle.TaskServiceTest" />
+        <item itemvalue="Gradle.TaskServiceTest.test_createTask_inputTaskDto_errorPoint" />
+        <item itemvalue="Gradle.HistoryServiceTest" />
+        <item itemvalue="Application.TaskManagementApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -310,7 +303,14 @@
       <workItem from="1644410192476" duration="902000" />
       <workItem from="1644498084776" duration="1507000" />
       <workItem from="1644766063829" duration="588000" />
-      <workItem from="1644839554399" duration="4922000" />
+      <workItem from="1644839554399" duration="6472000" />
+      <workItem from="1645455355242" duration="2497000" />
+      <workItem from="1647412675586" duration="2387000" />
+      <workItem from="1647506533912" duration="4616000" />
+      <workItem from="1658384823967" duration="54000" />
+      <workItem from="1663671322098" duration="1216000" />
+      <workItem from="1663672671964" duration="35000" />
+      <workItem from="1663673535720" duration="4000" />
     </task>
     <task id="LOCAL-00001" summary="Update Code 28-12-2021">
       <created>1640670637910</created>
@@ -473,7 +473,14 @@
       <option name="project" value="LOCAL" />
       <updated>1642753694142</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Update Code 14-02-2022 build test_SearchTask">
+      <created>1644851688065</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1644851688065</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -522,7 +529,8 @@
     <MESSAGE value="Update Code 12-01-2022 testing, build UnitTest class TaskService" />
     <MESSAGE value="Update Code 20-01-2022 build UnitTest class TaskService" />
     <MESSAGE value="Update Code 20-01-2022 build test_SearchTask" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Code 20-01-2022 build test_SearchTask" />
+    <MESSAGE value="Update Code 14-02-2022 build test_SearchTask" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Code 14-02-2022 build test_SearchTask" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/task_management$TaskServiceTest_test.ic" NAME="TaskServiceTest.test Coverage Results" MODIFIED="1644841740139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
